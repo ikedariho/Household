@@ -5,8 +5,8 @@ create database cupple_fivs;
 
 ➁users,man_salary,woman_saralyテーブルを作成(下記SQLを流す)
 drop table if exists users cascade;
-create table users(id integer primary key,user_id text not null,password text not null,man_name text not null,woman_name text not null,date timestamp not null);
+create table users(id serial primary key,user_id text not null,password text not null,man_name text not null,woman_name text not null,date timestamp not null);
 drop table if exists salaries cascade;
-create table salaries(id integer primary key,date timestamp not null,user_id text not null,man_salary integer not null,woman_salary integer not null);
+create table salaries(id serial primary key,date timestamp not null,user_id text not null,man_salary integer not null,woman_salary integer not null);
 INSERT INTO users(id,user_id,password,man_name,woman_name,date)VALUES(1,'test_user','test','man1','man2','2019-05-02 12:48:35');
 INSERT INTO salaries(id,date,user_id,man_salary,woman_salary)VALUES(1,'2019-05-02 12:48:35','test_user',100,100);

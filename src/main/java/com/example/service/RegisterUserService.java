@@ -29,10 +29,11 @@ public class RegisterUserService {
 	 */
 	public boolean findByUserId(String userId) {
 		User user = userRepository.findByUserId(userId);
+		System.out.println(user);
 		if(user == null) {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }

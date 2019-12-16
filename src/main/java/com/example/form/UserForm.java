@@ -1,28 +1,22 @@
 package com.example.form;
 
-import java.sql.Timestamp;
+
+import javax.validation.constraints.NotBlank;
 
 public class UserForm {
 
-	private Integer id;
 	/* 男性名前 */
+	@NotBlank(message = "必須項目です")
 	private String manName;
 	/* 女性名前 */
+	@NotBlank(message = "必須項目です")
 	private String womanName;
 	/* UserID */
+	@NotBlank(message = "必須項目です")
 	private String userId;
 	/* パスワード */
+	@NotBlank(message = "必須項目です")
 	private String password;
-	/* 登録日付 */
-	private Timestamp date;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getManName() {
 		return manName;
@@ -56,20 +50,10 @@ public class UserForm {
 		this.password = password;
 	}
 
-	public Timestamp getDate() {
-		return date;
-	}
-
-	public void setDate(Timestamp date) {
-		this.date = date;
-	}
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", manName=" + manName + ", womanName=" + womanName + ", userId=" + userId
-				+ ", password=" + password + ", date=" + date + "]";
+		return "UserForm [manName=" + manName + ", womanName=" + womanName + ", userId=" + userId + ", password="
+				+ password + "]";
 	}
 
-	
-	
 }

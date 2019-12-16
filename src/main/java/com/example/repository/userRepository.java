@@ -28,6 +28,7 @@ public class userRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	private SimpleJdbcInsert insert;
 	private static final RowMapper<User> USER_ROW_MAPPER = (rs, i) -> {
 		User user = new User();
 		user.setId(rs.getInt("id"));
@@ -39,12 +40,10 @@ public class userRepository {
 		return user;
 	};
 
-	private SimpleJdbcInsert insert;
-
 	@PostConstruct
 	public void init() {
 		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert((JdbcTemplate) template.getJdbcOperations());
-		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("orders");
+		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("users");
 		insert = withTableName.usingGeneratedKeyColumns("id");
 	}
 
@@ -54,37 +53,37 @@ public class userRepository {
 	 * @param user ユーザ情報
 	 * @return 新規登録したuserId
 	 */
-	public Integer insert(User user) {
+	public User insert(User user) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		Number key = insert.executeAndReturnKey(param);
 		user.setId(key.intValue());
-		return user.getId();
+		return user;
 	}
-	
+
 	public User findByUserId(String userId) {
 		String sql = "SELECT id,user_id,password,man_name,woman_name,date FROM users WHERE user_id = :userId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
-		List<User> userList = template.query(sql, param,USER_ROW_MAPPER);
-		if(userList.size()==0) {
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		System.out.println(userList.size());
+		if (userList.size() == 0) {
 			return null;
 		}
 		return userList.get(0);
 	}
-	
+
 	/**
 	 * ユーザIdとパスワードからuserを取得するメソッド.
 	 * 
-	 * @param userId ユーザID
+	 * @param userId   ユーザID
 	 * @param password パスワード
 	 * @return user情報
 	 */
-	public User findByUserIdAndPassword(String userId,String password) {
+	public User findByUserIdAndPassword(String userId, String password) {
 		String sql = "SELECT id,user_id,password,man_name,woman_name,date FROM users WHERE user_id = :userId AND password = :password";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("password", password);
-		List<User> userList = template.query(sql, param,USER_ROW_MAPPER);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("password",
+				password);
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		return userList.get(0);
 	}
-	
-	
 
 }

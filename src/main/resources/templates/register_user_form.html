@@ -6,11 +6,15 @@
 </head>
 <body>
 <h1>新規会員登録</h1>
-<form th:action="@{/}" method="POST">
-ユーザーID : <input type="text" name="userId"><br>
-パスワード : <input type="password" name="password"><br>
-名前(男性) : <input type="text" name="manName"><br>
-名前(女性) : <input type="text" name="womanName"><br>
+<form th:action="@{/registerUser}" method="POST" th:object="${userForm}">
+<div th:errors="*{userId}"></div>
+ユーザーID : <input type="text" name="userId" th:field="*{userId}"><br>
+<div th:errors="*{password}"></div>
+パスワード : <input type="password" name="password" th:field="*{password}"><br>
+<div th:errors="*{manName}"></div>
+名前(男性) : <input type="text" name="manName" th:field="*{manName}"><br>
+<div th:errors="*{womanName}"></div>
+名前(女性) : <input type="text" name="womanName"  th:field="*{womanName}"><br>
 <button>送信</button>
 
 </form>

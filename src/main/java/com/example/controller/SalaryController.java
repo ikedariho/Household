@@ -17,7 +17,7 @@ import com.example.service.SalaryService;
  *
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/salary")
 public class SalaryController {
 
 	@Autowired

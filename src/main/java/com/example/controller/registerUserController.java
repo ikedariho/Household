@@ -29,7 +29,7 @@ public class registerUserController {
 	}
 	
 	@RequestMapping("")
-	public String loginForm() {
+	public String toLoginPage() {
 		return "login_form";
 	}
 
@@ -55,7 +55,13 @@ public class registerUserController {
 		user.setDate(date);
 		System.out.println(user);
 		registerUserService.registerUser(user);
-		return loginForm();
+		return toLoginPage();
 	}
+	
+//	@RequestMapping("/login")
+//	public String toLogin() {
+//		
+//	}
+	
 
 }

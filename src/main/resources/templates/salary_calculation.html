@@ -27,9 +27,8 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ -->
-						<img alt="main log" th:src="@{/image/title.png}"
-						height="35">
+					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img
+						alt="main log" th:src="@{/image/title.png}" height="35">
 					</a>
 				</div>
 
@@ -51,223 +50,69 @@
 
 
 		<!-- table -->
-		<div class="row">
-			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<h3 class="text-center">給与入力
-				
-				
-				</h3>
-				<table class="table table-striped">
-					<tbody>
-						<tr>
-							<th>
-								<div class="text-center">商品名</div>
-							</th>
-							<th>
-								<div class="text-center">サイズ、価格(税抜)、数量</div>
-							</th>
-							<th>
-								<div class="text-center">トッピング、価格(税抜)</div>
-							</th>
-							<th>
-								<div class="text-center">小計</div>
-							</th>
-						</tr>
-						<tr th:each="orderItem:${order.orderItemList}">
 
 
-							<td>
-								<div class="center">
-									<img th:src="@{'/img_toy/'+${orderItem.item.imagePath}}"
-										class="img-responsive img-rounded" width="100" height="300"><br>
-									じゃがバターベーコン<span th:text="${orderItem.item.name}"></span>
-								</div>
-							</td>
-							<td><span class="price">&nbsp;<span
-									th:text="${orderItem.size}">L</span></span>&nbsp;&nbsp;<span
-								th:if="${orderItem.size}=='M'"
-								th:text="${#numbers.formatInteger(orderItem.item.priceM,1,'COMMA')}"></span>
-								<span th:unless="${orderItem.size}=='M'"
-								th:text="${#numbers.formatInteger(orderItem.item.priceL,1,'COMMA')}"></span>円
-								&nbsp;&nbsp;<span th:text="${orderItem.quantity}"></span>個</td>
-							<td>
-								<ul th:each="orderTopping:${orderItem.OrderToppingList}">
-									<li><span th:text="${orderTopping.topping.name}">ピーマン</span>
-										<span th:if="${orderItem.size}=='M'"
-										th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA')}"></span>
-										<span th:unless="${orderItem.size}=='M'"
-										th:text="${#numbers.formatInteger(orderTopping.topping.priceL,1,'COMMA')}">
-									</span>円</li>
 
-								</ul>
-							</td>
-							<td>
-								<div class="text-center">
-									<span
-										th:text="${#numbers.formatInteger(orderItem.getSubTotal(),1,'COMMA')}"></span>円
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-offset-2 col-xs-8">
-				<div class="form-group text-center">
-					<span id="total-price">消費税：<span
-						th:text="${#numbers.formatInteger(order.getTax(),1,'COMMA')}"></span>円
-					</span><br> <span id="total-price">ご注文金額合計：<span
-						th:text="${#numbers.formatInteger(order.getCalcTotalPrice(),1,'COMMA')}"></span>円
-						(税込)
-					</span>
-				</div>
-			</div>
-		</div>
 		<!-- table -->
 		<form th:action="@{}">
 			<!-- table -->
-			<input type="hidden" name="totalPrice"
-				th:value="${order.getCalcTotalPrice()}">
-
 			<div class="row">
 				<div
 					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-					<h3 class="text-center">お届け先情報</h3>
+					<h3 class="text-center">給与入力</h3>
+					<input type="hidden" name="userId" th:value="${user.userId}">
 					<table class="table table-striped">
 						<tbody>
 							<tr>
 								<td>
-									<div class="text-center">お名前</div>
-								</td>
-								<td><input type="text" name="destinationName"></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">メールアドレス</div>
-								</td>
-								<td><input type="text" name="destinationEmail"></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">郵便番号</div>
-								</td>
-								<td><input type="text" name="destinationZipcode">&nbsp;&nbsp;
-									<button>住所検索</button></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">住所</div>
-								</td>
-								<td><input type="text" name="destinationAddress"></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">電話番号</div>
-								</td>
-								<td><input type="text" name="destinationTel"></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">配達日時</div>
+									<div class="text-center">日付</div>
 								</td>
 								<td>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-12">
 												<label class="control-label" style="color: red"
-													for="inputPeriod">配達日時を入力してください</label>
+													for="inputPeriod">日付を入力してください</label>
 											</div>
 											<div class="col-sm-5">
-												<input type="date" name="deliveryDate" id="name"
-													class="form-control input-sm" />
+												<input type="date" name="date" id="deliveryTime"
+													class="form-control input-sm" min="deliveryTime" />
 											</div>
-
-										</div>
-										<div class="row">
-											<div class="col-sm-12">
-												<label class="radio-inline"> <input type="radio"
-													name="deliveryTime" checked="checked" value="10">
-													10時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime" value="11"> 11時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime" value="12"> 12時
-												</label><br> <label class="radio-inline"> <input
-													type="radio" name="deliveryTime" value="13"> 13時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime" value="14"> 14時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime" value="15"> 15時
-												</label><br> <label class="radio-inline"> <input
-													type="radio" name="deliveryTime" value="16"> 16時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime" value="17"> 17時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime" value="18"> 18時
-												</label><br>
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<!-- table -->
-			<div class="row">
-				<div
-					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-					<h3 class="text-center">お支払い方法</h3>
-					<table class="table table-striped">
-						<tbody>
-							<tr>
-								<td>
-									<div class="text-center">代金引換</div>
-								</td>
-								<td>
-									<div class="row">
-										<div class="col-sm-12">
-											<label class="radio-inline"> <input type="radio"
-												name="paymentMethod" value="1" checked="checked">
-												代金引換
-											</label>
 										</div>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<div class="text-center">クレジットカード決済</div>
+									<div class="text-center" th:text="${user.manName}">男性名前</div>
 								</td>
-								<td align="center">
-									<div class="row">
-										<div class="col-sm-12">
-											<label class="radio-inline"> <input type="radio"
-												name="paymentMethod" value="2" checked="checked">
-												クレジットカード
-
-											</label><br> <br>
-										</div>
-									</div>
-								</td>
+								<td><input type="text" name="manSalary" class="manSalary">男性給与</td>
 							</tr>
-
-
+							<tr>
+								<td>
+									<div class="text-center" th:text="${user.womanName}">女性名前</div>
+								</td>
+								<td><input type="text" name="womanSalary"
+									class="womanSalary">女性給与</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
+
 			<div class="row">
-				<div class="col-xs-offset-4 col-xs-4">
-					<div class="form-group">
-						<input class="form-control btn btn-warning btn-block"
-							type="submit" value="この内容で注文する">
+				<div class="col-xs-offset-2 col-xs-8">
+					<div class="form-group text-center">
+						<span id="total-price">給与合計：<span id="totalSalary"></span>円
+						</span>
 					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-offset-4 col-xs-4">
+				<div class="form-group">
+					<input class="form-control btn btn-warning btn-block" type="submit"
+						value="計算する">
 				</div>
 			</div>
 		</form>

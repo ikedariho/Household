@@ -1,6 +1,5 @@
 package com.example.form;
 
-import java.security.Timestamp;
 
 /**
  * 給与登録の際に使用するフォーム.
@@ -16,7 +15,7 @@ public class SalaryForm {
 	/* 女性給料 */
 	private String womanSalary;
 	/* 日付 */
-	private Timestamp date;
+	private String date;
 
 	/**
 	 * @return the userId
@@ -63,14 +62,14 @@ public class SalaryForm {
 	/**
 	 * @return the date
 	 */
-	public Timestamp getDate() {
+	public String getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Timestamp date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -6,9 +6,10 @@
 </head>
 <body>
 <h1>Cupple fivsへようこそ</h1><br><br>
-<form action="@{/showSalaryCalcuration}" method="POST">
-ログインID : <input type="text" name="userId"><br>
-PASSWORD : <input type="text" name="password"><br>
+<form th:action="@{/login}" method="POST" th:object="${loginForm}">
+<div th:errors="*{userId}"></div>
+ログインID : <input type="text" name="userId" th:field="*{userId}"><br>
+PASSWORD : <input type="text" name="password" th:field="*{password}"><br>
 <button>ログイン</button>
 </form>
 <br>

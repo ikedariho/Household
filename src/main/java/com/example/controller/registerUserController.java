@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.User;
+import com.example.form.LoginForm;
 import com.example.form.UserForm;
 import com.example.service.RegisterUserService;
 
@@ -22,12 +23,17 @@ public class registerUserController {
 
 	@Autowired
 	private RegisterUserService registerUserService;
-	
+
 	@ModelAttribute
-	public UserForm userForm(){
-	return new UserForm();
+	public UserForm userForm() {
+		return new UserForm();
 	}
-	
+
+	@ModelAttribute
+	public LoginForm loginForm() {
+		return new LoginForm();
+	}
+
 	@RequestMapping("")
 	public String toLoginPage() {
 		return "login_form";
@@ -37,17 +43,17 @@ public class registerUserController {
 	public String registerUserForm() {
 		return "register_user_form";
 	}
-	
+
 	@RequestMapping("/registerUser")
-	public String registerUser(@Validated UserForm userForm,BindingResult result,Model model) {
+	public String registerUser(@Validated UserForm userForm, BindingResult result, Model model) {
 		User user = new User();
 		BeanUtils.copyProperties(userForm, user);
 		String userId = user.getUserId();
 		boolean checkUserId = registerUserService.findByUserId(userId);
-		if(checkUserId==false) {
-			result.rejectValue("userId",null, "そのユーザIDは登録されています");
+		if (checkUserId == false) {
+			result.rejectValue("userId", null, "そのユーザIDは登録されています");
 		}
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return registerUserForm();
 		}
 		LocalDateTime nowLocalDt = LocalDateTime.now();
@@ -55,13 +61,22 @@ public class registerUserController {
 		user.setDate(date);
 		System.out.println(user);
 		registerUserService.registerUser(user);
-		return toLoginPage();
+		return "redirect:login_form";
 	}
-	
-//	@RequestMapping("/login")
-//	public String toLogin() {
-//		
-//	}
-	
+
+	@RequestMapping("/login")
+	public String toLogin(@Validated LoginForm loginForm, BindingResult result, Model model) {
+		User user = new User();
+		BeanUtils.copyProperties(loginForm, user);
+		User confirmUser = registerUserService.findByUserIdAndPassword(user);
+		System.out.println(confirmUser);
+		if (confirmUser == null) {
+			result.rejectValue("userId", null, "ユーザIDまたはパスワードが違います");
+		}
+		if (result.hasErrors()) {
+			return toLoginPage();
+		}
+		return "salary_calculation";
+	}
 
 }

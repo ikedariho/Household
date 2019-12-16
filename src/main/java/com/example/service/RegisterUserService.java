@@ -35,5 +35,12 @@ public class RegisterUserService {
 		}
 		return false;
 	}
+	
+	public User findByUserIdAndPassword(User user) {
+		String userId = user.getUserId();
+		String password = user.getPassword();
+		return userRepository.findByUserIdAndPassword(userId, password);
+	}
+	
 
 }

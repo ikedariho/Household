@@ -32,10 +32,10 @@ public class userRepository {
 	private static final RowMapper<User> USER_ROW_MAPPER = (rs, i) -> {
 		User user = new User();
 		user.setId(rs.getInt("id"));
-		user.setUserId(rs.getString("userId"));
+		user.setUserId(rs.getString("user_id"));
 		user.setPassword(rs.getString("password"));
-		user.setManName(rs.getString("manName"));
-		user.setWomanName(rs.getString("womanName"));
+		user.setManName(rs.getString("man_name"));
+		user.setWomanName(rs.getString("woman_name"));
 		user.setDate(rs.getTimestamp("date"));
 		return user;
 	};
@@ -83,6 +83,9 @@ public class userRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("password",
 				password);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if(userList.size()==0) {
+			return null;
+		}
 		return userList.get(0);
 	}
 

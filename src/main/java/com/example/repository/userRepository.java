@@ -60,6 +60,12 @@ public class userRepository {
 		return user;
 	}
 
+	/**
+	 * ユーザIDからUserを検索するメソッド.
+	 * 
+	 * @param userId ユーザID
+	 * @return User情報.無ければnull
+	 */
 	public User findByUserId(String userId) {
 		String sql = "SELECT id,user_id,password,man_name,woman_name,date FROM users WHERE user_id = :userId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);

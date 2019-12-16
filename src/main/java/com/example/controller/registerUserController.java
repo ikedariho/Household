@@ -34,16 +34,34 @@ public class registerUserController {
 		return new LoginForm();
 	}
 
+	/**
+	 * ログイン画面を表示するメソッド.
+	 * 
+	 * @return ログイン画面に遷移
+	 */
 	@RequestMapping("")
 	public String toLoginPage() {
 		return "login_form";
 	}
 
+	/**
+	 * ユーザ登録画面を表示するメソッド.
+	 * 
+	 * @return ユーザ登録画面に遷移
+	 */
 	@RequestMapping("/showRegisterUserForm")
 	public String registerUserForm() {
 		return "register_user_form";
 	}
 
+	/**
+	 * ユーザ登録を行うメソッド.
+	 * 
+	 * @param userForm リクエストパラメータ
+	 * @param result バリデーション
+	 * @param model リクエストスコープ
+	 * @return 成功時、ログイン画面に遷移
+	 */
 	@RequestMapping("/registerUser")
 	public String registerUser(@Validated UserForm userForm, BindingResult result, Model model) {
 		User user = new User();
@@ -64,6 +82,14 @@ public class registerUserController {
 		return "redirect:login_form";
 	}
 
+	/**
+	 * ログインを行うメソッド.
+	 * 
+	 * @param loginForm リクエストパラメータ
+	 * @param result ヴァリデーション
+	 * @param model リクエストスコープ
+	 * @return ログイン後の画面に遷移
+	 */
 	@RequestMapping("/login")
 	public String toLogin(@Validated LoginForm loginForm, BindingResult result, Model model) {
 		User user = new User();

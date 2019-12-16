@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang = "ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>新規会員登録</h1>
+<form th:action="@{/}" method="POST">
+ユーザーID : <input type="text" name="userId"><br>
+パスワード : <input type="password" name="password"><br>
+名前(男性) : <input type="text" name="manName"><br>
+名前(女性) : <input type="text" name="womanName"><br>
+<button>送信</button>
+
+</form>
+</body>
+</html>

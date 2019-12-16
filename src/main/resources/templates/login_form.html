@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang = "ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Cupple fivsへようこそ</h1><br><br>
+<form action="@{/showSalaryCalcuration}" method="POST">
+ログインID : <input type="text" name="userId"><br>
+PASSWORD : <input type="text" name="password"><br>
+<button>ログイン</button>
+</form>
+<br>
+
+<a th:href="@{/registerUser}" th:text="新規会員登録"></a>
+</body>
+</html>

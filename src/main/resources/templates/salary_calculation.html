@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>おうち家計簿</title>
+<title>CoupleFiVs</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/piza.css}" rel="stylesheet">
 <!--[if lt IE 9]>
@@ -54,7 +54,10 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<h3 class="text-center">注文内容確認</h3>
+				<h3 class="text-center">給与入力
+				
+				
+				</h3>
 				<table class="table table-striped">
 					<tbody>
 						<tr>
@@ -124,7 +127,7 @@
 			</div>
 		</div>
 		<!-- table -->
-		<form th:action="@{/purchase}">
+		<form th:action="@{}">
 			<!-- table -->
 			<input type="hidden" name="totalPrice"
 				th:value="${order.getCalcTotalPrice()}">

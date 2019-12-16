@@ -1,15 +1,9 @@
-package com.example.domain;
+package com.example.form;
 
 import java.sql.Timestamp;
 
-/**
- * ユーザー登録に使用するドメイン.
- * 
- * @author riho.ikeda
- *
- */
-public class User {
-	/* ID */
+public class UserForm {
+
 	private Integer id;
 	/* 男性名前 */
 	private String manName;

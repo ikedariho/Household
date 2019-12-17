@@ -14,7 +14,7 @@ public class Category {
 	/* カテゴリー名前 */
 	private String categoryName;
 	/* カテゴリー予算 */
-	private String budget;
+	private Integer budget;
 	public Integer getId() {
 		return id;
 	}
@@ -33,10 +33,10 @@ public class Category {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	public String getBudget() {
+	public Integer getBudget() {
 		return budget;
 	}
-	public void setBudget(String budget) {
+	public void setBudget(Integer budget) {
 		this.budget = budget;
 	}
 	@Override

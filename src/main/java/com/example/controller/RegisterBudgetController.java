@@ -2,6 +2,7 @@ package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.form.LivingBudgetForm;
@@ -21,9 +22,10 @@ public class RegisterBudgetController {
 
 	@RequestMapping("")
 
-	public String registerBudget(LivingBudgetForm livingBudgetForm) {
+	public String registerBudget(LivingBudgetForm livingBudgetForm,Model model) {
 		registerBudgetService.registerBudget(livingBudgetForm);
-		return "";
+		return "confirm";
 	}
+
 
 }

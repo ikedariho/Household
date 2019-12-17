@@ -43,7 +43,7 @@ public class SalaryController {
 		Salary salary = new Salary();
 		BeanUtils.copyProperties(salaryForm, salary);
 		salaryService.salaryInsert(salary);
-		return "salary_detail";
+		return "living_budged";
 
 	}
 

@@ -84,7 +84,7 @@ public class registerUserController {
 		user.setDate(date);
 		System.out.println(user);
 		registerUserService.registerUser(user);
-		return "redirect:login_form";
+		return "redirect:/";
 	}
 
 	/**

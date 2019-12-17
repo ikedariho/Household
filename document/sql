@@ -10,15 +10,12 @@ drop table if exists salaries cascade;
 create table salaries(id serial primary key,date timestamp not null,user_id text not null,man_salary integer not null,woman_salary integer not null);
 drop table if exists living_budgets cascade;
 create table living_budgets(id serial primary key,salary_id Integer not null, user_id text not null,date timestamp);
-drop table if exists category_names;
-create table category_names(id serial primary key,living_budget_id Integer not null, category_name text not null);
-drop table if exists category_budgets;
-create table category_budgets(id serial primary key,category_name_id Integer not null, budget Integer not null);
+drop table if exists categories;
+create table categories(id serial primary key,living_budget_id Integer not null, category_name text not null,budget Integer not null);
 
 
 
 INSERT INTO users(id,user_id,password,man_name,woman_name,date)VALUES(1,'test_user','test','man1','man2','2019-05-02 12:48:35');
 INSERT INTO salaries(id,date,user_id,man_salary,woman_salary)VALUES(1,'2019-05-02 12:48:35','test_user',100,100);
 INSERT INTO living_budgets(id,salary_id,user_id,date)VALUES(1,1,'test_user','2019-05-02 12:48:35');
-INSERT INTO category_names(id,living_budget_id,category_name)VALUES(1,1,'項目1');
-INSERT INTO category_budgets(id,category_name_id,budget)VALUES(1,1,2000);
+INSERT INTO categories(id,living_budget_id,category_name,budget)VALUES(1,1,'項目1',1000);

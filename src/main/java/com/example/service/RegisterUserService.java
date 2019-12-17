@@ -36,10 +36,20 @@ public class RegisterUserService {
 		return false;
 	}
 	
+	/**
+	 * Userを検索するメソッド.
+	 * 
+	 * @param user 検索するユーザ情報(userIdとパスワード)
+	 * @return ユーザ情報
+	 */
 	public User findByUserIdAndPassword(User user) {
 		String userId = user.getUserId();
 		String password = user.getPassword();
-		return userRepository.findByUserIdAndPassword(userId, password);
+		User confirmUser = userRepository.findByUserIdAndPassword(userId, password);
+		if(confirmUser != null) {
+			confirmUser.setPassword(null);
+		}
+		return confirmUser;
 	}
 	
 

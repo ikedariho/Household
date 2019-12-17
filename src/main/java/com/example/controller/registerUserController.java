@@ -3,6 +3,8 @@ package com.example.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,9 @@ public class registerUserController {
 	public LoginForm loginForm() {
 		return new LoginForm();
 	}
+	
+	@Autowired
+	private HttpSession session;
 
 	/**
 	 * ログイン画面を表示するメソッド.
@@ -102,6 +107,8 @@ public class registerUserController {
 		if (result.hasErrors()) {
 			return toLoginPage();
 		}
+		
+		session.setAttribute("user", confirmUser);
 		return "salary_calculation";
 	}
 

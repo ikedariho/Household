@@ -87,7 +87,7 @@
 							</tr>
 							<tr>
 								<td>
-									<div class="text-center">男性名前</div>
+									<div class="text-center" th:text="${session.user.manName}">男性名前</div>
 									<!-- th:text="${user.manName}" -->
 								</td>
 								<td>
@@ -99,7 +99,7 @@
 							</tr>
 							<tr>
 								<td>
-									<div class="text-center">女性名前</div>
+									<div class="text-center" th:text="${session.user.womanName}">女性名前</div>
 									<!-- th:text="${user.womanName}" -->
 								</td>
 								<td>

@@ -1,9 +1,8 @@
 package com.example.form;
 
-import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
-import com.example.domain.Category;
 
 /**
  * 予算登録する際に使用するフォーム.
@@ -18,9 +17,11 @@ public class LivingBudgetForm {
 	/* UserID */
 	private String userId;
 	/* 日付 */
-	private Timestamp date;
-	/* CategoryNameList */
-	private List<Category> categoryList;
+	private Date date;
+	/* CategoryList */
+	private List<String> categoryNameList;
+
+	private List<Integer> bugetList;
 
 	/**
 	 * @return the salaryId
@@ -53,40 +54,43 @@ public class LivingBudgetForm {
 	/**
 	 * @return the date
 	 */
-	public Timestamp getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Timestamp date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
 	/**
-	 * @return the category
+	 * @return the categoryNameList
 	 */
-	public List<Category> getcategoryList() {
-		return categoryList;
+	public List<String> getCategoryNameList() {
+		return categoryNameList;
 	}
 
 	/**
-	 * @param category the category to set
+	 * @param categoryNameList the categoryNameList to set
 	 */
-	public void setcategoryList(List<Category> categoryList) {
-		this.categoryList = categoryList;
+	public void setCategoryNameList(List<String> categoryNameList) {
+		this.categoryNameList = categoryNameList;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the list
 	 */
-	@Override
-	public String toString() {
-		return "LivingBudgetForm [salaryId=" + salaryId + ", userId=" + userId + ", date=" + date + ", categoryList="
-				+ categoryList + "]";
+	public List<Integer> getbugetList() {
+		return bugetList;
+	}
+
+	/**
+	 * @param list the list to set
+	 */
+	public void setbugetList(List<Integer> bugetlist) {
+		bugetList = bugetlist;
 	}
 
 }

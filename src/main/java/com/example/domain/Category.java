@@ -14,7 +14,6 @@ public class Category {
 	/* カテゴリー名前 */
 	private String categoryName;
 	/* カテゴリー予算 */
-
 	private String budget;
 
 	/**

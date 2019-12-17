@@ -18,7 +18,7 @@ public class LivingBudget {
 	private String userId;
 	/* 日付 */
 	private Timestamp date;
-	/* CategoryNameList */
+	/* CategoryList */
 	private List<Category> categoryList;
 
 	/**

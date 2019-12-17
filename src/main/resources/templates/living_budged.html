@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang = "ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<title>Insert title here</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/piza.css}" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/living_budget.js}"></script>
+</head>
+<body>
+今月の予算を算出します。
+項目と予算をそれぞれ追加してください。
+<form th:action="@{/test/testdata}" method="POST">
+<div style="background-color : #CCC; padding : 20px 20px 10px;">
+  <nobr><input type="button" id="add_category_btn" value="項目を追加"></nobr>
+  <ul id="category_ul">
+    <li>項目1&nbsp;&nbsp;&nbsp;<input type="text" name="categoryNameList">  予算 <input type="text" name="budgedList"></li>
+    <li>項目2&nbsp;&nbsp;&nbsp;<input type="text" name="categoryNameList">  予算 <input type="text" name="budgedList"></li>
+    </ul>
+</div>
+
+<button>送信</button>
+</form>
+
+	<!-- end container -->
+<!-- 	<script -->
+<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

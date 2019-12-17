@@ -83,8 +83,9 @@ public class registerUserController {
 		Timestamp date = Timestamp.valueOf(nowLocalDt);
 		user.setDate(date);
 		System.out.println(user);
+		System.out.println(user);
 		registerUserService.registerUser(user);
-		return "redirect:login_form";
+		return "redirect:/";
 	}
 
 	/**
@@ -109,7 +110,7 @@ public class registerUserController {
 		}
 		
 		session.setAttribute("user", confirmUser);
-		return "salary_calculation";
+		return "forward:/salary";
 	}
 
 }

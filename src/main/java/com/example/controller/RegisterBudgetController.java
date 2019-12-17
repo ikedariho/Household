@@ -21,7 +21,6 @@ public class RegisterBudgetController {
 	private RegisterBudgetService registerBudgetService;
 
 	@RequestMapping("")
-
 	public String registerBudget(LivingBudgetForm livingBudgetForm,Model model) {
 		registerBudgetService.registerBudget(livingBudgetForm);
 		return "confirm";

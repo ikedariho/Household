@@ -17,6 +17,14 @@ public class SalaryForm {
 	/* 日付 */
 	private String date;
 
+	public Integer getIntManSalary() {
+		return Integer.parseInt(manSalary);
+	}
+	
+	public Integer getIntWomanSalary() {
+		return Integer.parseInt(womanSalary);
+	}
+	
 	/**
 	 * @return the userId
 	 */

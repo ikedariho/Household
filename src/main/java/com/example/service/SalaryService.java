@@ -25,9 +25,9 @@ public class SalaryService {
 	 * 
 	 * @param salary
 	 */
-	public void salaryInsert(Salary salary) {
-		salaryRepository.insert(salary);
-
+	public Integer salaryInsert(Salary salary) {
+		Integer salaryId =  salaryRepository.insert(salary);
+		return salaryId;
 	}
 
 }

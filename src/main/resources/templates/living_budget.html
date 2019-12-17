@@ -15,7 +15,9 @@
 <body>
 今月の予算を算出します。
 項目と予算をそれぞれ追加してください。
-<form th:action="@{/test/testdata}" method="POST">
+<form th:action="@{/registerBudget}" method="POST">
+<input type= "hidden" th:value="${salaryId}" name="salaryId">
+<input type= "hidden" th:value="${session.user.userId}" name="userId">
 <div style="background-color : #CCC; padding : 20px 20px 10px;">
   <nobr><input type="button" id="add_category_btn" value="項目を追加"></nobr>
   <ul id="category_ul">

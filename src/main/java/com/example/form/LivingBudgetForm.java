@@ -22,6 +22,7 @@ public class LivingBudgetForm {
 	private List<String> categoryNameList;
 
 	private List<Integer> bugetList;
+	
 
 	/**
 	 * @return the salaryId

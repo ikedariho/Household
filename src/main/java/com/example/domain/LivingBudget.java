@@ -1,6 +1,6 @@
 package com.example.domain;
 
-import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +17,8 @@ public class LivingBudget {
 	/* UserID */
 	private String userId;
 	/* 日付 */
-	private Timestamp date;
-	/* CategoryNameList */
+	private Date date;
+	/* CategoryList */
 	private List<Category> categoryList;
 
 	/**
@@ -66,14 +66,14 @@ public class LivingBudget {
 	/**
 	 * @return the date
 	 */
-	public Timestamp getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Timestamp date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -92,7 +92,6 @@ public class LivingBudget {
 	}
 
 	/*
-	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */

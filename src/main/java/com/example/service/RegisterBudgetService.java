@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,20 +32,32 @@ public class RegisterBudgetService {
 		LivingBudget livingBudget = new LivingBudget();
 		livingBudget.setSalaryId(livingBudgetForm.getSalaryId());
 		livingBudget.setUserId(livingBudgetForm.getUserId());
-		livingBudget.setDate(livingBudgetForm.getDate());
+
+		Date date = new Date();
+		livingBudget.setDate(date);
+		
 		livingBudgetRepository.insert(livingBudget);
 
 		Category category = new Category();
-		if (livingBudgetForm.getcategoryList() != null) {
-			for (Category categoryitem : livingBudgetForm.getcategoryList()) {
+		if (livingBudgetForm.getCategoryNameList() != null) {
+			Integer count = 0;
+			for (String categoryName : livingBudgetForm.getCategoryNameList()) {
+				category.setCategoryName(categoryName);
+				livingBudget.getCategoryList().add(category);
+			}
+			for (Integer budget : livingBudgetForm.getbugetList()) {
+				livingBudget.getCategoryList().get(count).setBudget(budget);
+				count += 1;
+			}
+
+			for (Category categoryitem : livingBudget.getCategoryList()) {
 				category.setLivingBudgetId(livingBudget.getId());
 				category.setCategoryName(categoryitem.getCategoryName());
-				category.setbudget(categoryitem.getbudget());
+				category.setBudget(categoryitem.getBudget());
 				categoryRepository.insert(category);
 
 			}
 		}
-
 	}
 
 }

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang = "ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,25 +13,55 @@
 <script type="text/javascript" th:src="@{/js/living_budget.js}"></script>
 </head>
 <body>
-今月の予算を算出します。
-項目と予算をそれぞれ追加してください。
-<form th:action="@{/registerBudget}" method="POST">
-<input type= "hidden" th:value="${salaryId}" name="salaryId">
-<input type= "hidden" th:value="${session.user.userId}" name="userId">
-<div style="background-color : #CCC; padding : 20px 20px 10px;">
-  <nobr><input type="button" id="add_category_btn" value="項目を追加"></nobr>
-  <ul id="category_ul">
-    <li>項目1&nbsp;&nbsp;&nbsp;<input type="text" name="categoryNameList">  予算 <input type="text" name="budgedList"></li>
-    <li>項目2&nbsp;&nbsp;&nbsp;<input type="text" name="categoryNameList">  予算 <input type="text" name="budgedList"></li>
-    </ul>
-</div>
-
-<button>送信</button>
-</form>
-
+	<div class="container">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light p-4">
+				<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img
+					alt="main log" th:src="@{/image/title.png}" height="50">
+				</a>
+			</nav>
+			<nav class="navbar navbar-light mb-2"
+				style="background-color: #e3f2fd;">
+				今月の予算を算出します。<br> 項目と予算をそれぞれ追加してください。<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<form th:action="@{/registerBudget}" method="POST">
+					<input type="hidden" th:value="${salaryId}" name="salaryId">
+					<input type="hidden" th:value="${session.user.userId}"
+						name="userId">
+					<nobr>
+						<input type="button" class="btn btn-primary" id="add_category_btn"
+							value="項目を追加">
+					</nobr>
+					<br>
+					<ul id="category_ul" style="list-style:none;">
+						<li>項目1&nbsp;&nbsp;&nbsp;<input type="text"
+							name="categoryNameList"> 予算 <input type="text"
+							name="budgedList"></li>
+							<li> </li>
+						<li>項目2&nbsp;&nbsp;&nbsp;<input type="text"
+							name="categoryNameList"> 予算 <input type="text"
+							name="budgedList"></li>
+					</ul>
+					<ul style="list-style:none;">
+											<li>男性お小遣い&nbsp;&nbsp;&nbsp;<input type="text"
+							name="categoryNameList"> 予算 <input type="text"
+							name="budgedList"></li>
+													<li>女性お小遣い&nbsp;&nbsp;&nbsp;<input type="text"
+							name="categoryNameList"> 予算 <input type="text"
+							name="budgedList"></li>
+					
+					</ul>
+					<button class="btn btn-primary">送信</button>
+				</form>
+			</nav>
+		</div>
+	</div>
 	<!-- end container -->
-<!-- 	<script -->
-<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+	<!-- 	<script -->
+	<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

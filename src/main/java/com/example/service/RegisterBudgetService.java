@@ -37,29 +37,30 @@ public class RegisterBudgetService {
 
 		Date date = new Date();
 		livingBudget.setDate(date);
-		
+
 		livingBudgetRepository.insert(livingBudget);
 
-		Category category = new Category();
+		Category category = null;
 		if (livingBudgetForm.getCategoryNameList() != null) {
 			Integer count = 0;
+			List<Category> CategoryList = new ArrayList<>();
 			for (String categoryName : livingBudgetForm.getCategoryNameList()) {
+				category = new Category();
+				category.setLivingBudgetId(livingBudget.getId());
 				category.setCategoryName(categoryName);
-				livingBudget.getCategoryList().add(category);
+				CategoryList.add(category);
+
 			}
-			for (Integer budget : livingBudgetForm.getbugetList()) {
+			livingBudget.setCategoryList(CategoryList);
+
+			for (Integer budget : livingBudgetForm.getbudgedList()) {
+				category.setBudget(budget);
 				livingBudget.getCategoryList().get(count).setBudget(budget);
 				count += 1;
 			}
 
-			for (Category categoryitem : livingBudget.getCategoryList()) {
-				category.setLivingBudgetId(livingBudget.getId());
-				category.setCategoryName(categoryitem.getCategoryName());
-				category.setBudget(categoryitem.getBudget());
-				categoryRepository.insert(category);
+			categoryRepository.insert(category);
 
-			}
 		}
 	}
-
 }

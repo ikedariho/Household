@@ -81,7 +81,9 @@ public class RegisterBudgetService {
 	 * @return
 	 */
 	public Salary comfirm(LivingBudgetForm livingBudgetForm) {
+		System.out.println("サービス："+salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId()));
 		return salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId());
+	
 
 	}
 

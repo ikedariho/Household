@@ -43,14 +43,26 @@ public class RegisterBudgetService {
 	 */
 	public void registerBudget(LivingBudgetForm livingBudgetForm) {
 		LivingBudget livingBudget = new LivingBudget();
+		List<String> checkNameList = new ArrayList<>();
+		for(String categoryName:livingBudgetForm.getCategoryNameList()) {
+			System.out.println(categoryName);
+			if(!(categoryName.equals(""))) {
+				checkNameList.add(categoryName);
+			}
+		}
+		livingBudgetForm.setCategoryNameList(checkNameList); // formのnameが空の所を消去してリストを更新.
+		List<Integer> checkBudgetList = new ArrayList<>();
+		for(Integer budget:livingBudgetForm.getbudgedList()) {
+			if(!(budget==null)) {
+				checkBudgetList.add(budget);
+			}
+		}
+		livingBudgetForm.setbudgedList(checkBudgetList);	// formのbudgetがnullの所を消去してリストを更新.
 		livingBudget.setSalaryId(livingBudgetForm.getSalaryId());
 		livingBudget.setUserId(livingBudgetForm.getUserId());
-
 		Date date = new Date();
 		livingBudget.setDate(date);
-
 		livingBudgetRepository.insert(livingBudget);
-		System.out.println(livingBudgetForm);
 		Category category = null;
 		if (livingBudgetForm.getCategoryNameList() != null) {
 			Integer count = 0;
@@ -60,10 +72,8 @@ public class RegisterBudgetService {
 				category.setLivingBudgetId(livingBudget.getId());
 				category.setCategoryName(categoryName);
 				CategoryList.add(category);
-
 			}
 			livingBudget.setCategoryList(CategoryList);
-
 			for (Integer budget : livingBudgetForm.getbudgedList()) {
 				category = new Category();
 				category = livingBudget.getCategoryList().get(count);

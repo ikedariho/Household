@@ -51,6 +51,11 @@ public class SalaryRepository {
 		Number key = insert.executeAndReturnKey(param);
 		return key.intValue();
 	}
+	
+//	private static final RowMapper<Salary> SALARY_ROW_MAPPER = (rs,i) ->{
+//		
+//	};
+	
 
 	public static final ResultSetExtractor<List<Salary>> SALARY_RESULT_SET_EXTRACTER = (rs) -> {
 		List<Salary> salaryList = new ArrayList<>();

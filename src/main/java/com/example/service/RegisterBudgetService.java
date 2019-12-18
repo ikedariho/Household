@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Category;
 import com.example.domain.LivingBudget;
+import com.example.domain.Salary;
 import com.example.form.LivingBudgetForm;
 import com.example.repository.CategoryRepository;
 import com.example.repository.LivingBudgetRepository;
+import com.example.repository.SalaryRepository;
 
 /**
  * 予算登録するサービス.
@@ -25,11 +28,19 @@ import com.example.repository.LivingBudgetRepository;
 public class RegisterBudgetService {
 
 	@Autowired
+	private SalaryRepository salaryRepository;
+
+	@Autowired
 	private LivingBudgetRepository livingBudgetRepository;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	/**
+	 * 予算情報をインサートする.
+	 * 
+	 * @param livingBudgetForm
+	 */
 	public void registerBudget(LivingBudgetForm livingBudgetForm) {
 		LivingBudget livingBudget = new LivingBudget();
 		livingBudget.setSalaryId(livingBudgetForm.getSalaryId());
@@ -60,7 +71,18 @@ public class RegisterBudgetService {
 				count += 1;
 				categoryRepository.insert(category);
 			}
-
 		}
+	};
+
+	/**
+	 * 確認画面を表示させる.
+	 * 
+	 * @param livingBudgetForm
+	 * @return
+	 */
+	public Salary comfirm(LivingBudgetForm livingBudgetForm) {
+		return salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId());
+
 	}
+
 }

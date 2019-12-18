@@ -62,6 +62,7 @@ public class SalaryController {
 		Integer salaryld = salaryService.salaryInsert(salary);
 		model.addAttribute("salaryId", salaryld);
 		return "living_budget";
+		
 
 	}
 

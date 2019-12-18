@@ -3,7 +3,6 @@ package com.example.form;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * 予算登録する際に使用するフォーム.
  * 
@@ -21,8 +20,7 @@ public class LivingBudgetForm {
 	/* CategoryList */
 	private List<String> categoryNameList;
 
-	private List<Integer> bugetList;
-	
+	private List<Integer> budgedList;
 
 	/**
 	 * @return the salaryId
@@ -83,15 +81,26 @@ public class LivingBudgetForm {
 	/**
 	 * @return the list
 	 */
-	public List<Integer> getbugetList() {
-		return bugetList;
+	public List<Integer> getbudgedList() {
+		return budgedList;
 	}
 
 	/**
 	 * @param list the list to set
 	 */
-	public void setbugetList(List<Integer> bugetlist) {
-		bugetList = bugetlist;
+	public void setbudgedList(List<Integer> budgedList) {
+		this.budgedList = budgedList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "LivingBudgetForm [salaryId=" + salaryId + ", userId=" + userId + ", date=" + date
+				+ ", categoryNameList=" + categoryNameList + ", budgedList=" + budgedList + "]";
 	}
 
 }

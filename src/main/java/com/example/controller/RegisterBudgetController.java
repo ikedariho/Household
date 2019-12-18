@@ -37,7 +37,7 @@ public class RegisterBudgetController {
 		registerBudgetService.registerBudget(livingBudgetForm);
 		Salary salary = registerBudgetService.comfirm(livingBudgetForm);
 		model.addAttribute("salary", salary);
-		return "redirect:confirm";
+		return "confirm";
 	}
 
 }

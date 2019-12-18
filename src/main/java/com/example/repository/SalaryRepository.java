@@ -82,7 +82,7 @@ public class SalaryRepository {
 			if (rs.getInt("l_id") != livingBudgePreId) {
 				LivingBudget livingBudget = new LivingBudget();
 				livingBudget.setId(rs.getInt("l_id"));
-				livingBudget.setSalaryId(rs.getInt("salary_id"));
+				livingBudget.setSalaryId(rs.getInt("l_salary_id"));
 				livingBudget.setUserId(rs.getString("l_user_id"));
 				livingBudget.setDate(rs.getDate("l_date"));
 				categoryList = new ArrayList<>();

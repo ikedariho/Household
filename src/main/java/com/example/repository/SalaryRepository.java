@@ -82,7 +82,7 @@ public class SalaryRepository {
 			if (rs.getInt("l_id") != livingBudgePreId) {
 				LivingBudget livingBudget = new LivingBudget();
 				livingBudget.setId(rs.getInt("l_id"));
-				livingBudget.setSalaryId(rs.getInt("salary_id"));
+				livingBudget.setSalaryId(rs.getInt("l_salary_id"));
 				livingBudget.setUserId(rs.getString("l_user_id"));
 				livingBudget.setDate(rs.getDate("l_date"));
 				categoryList = new ArrayList<>();
@@ -109,7 +109,7 @@ public class SalaryRepository {
 	public Salary findBySalaryId(Integer id) {
 		String sql = "SELECT s.id AS s_id,s.date AS s_date,s.user_id AS s_user_id,s.man_salary AS s_man_salary,s.woman_salary AS s_woman_salary,"
 				+ "l.id AS l_id,l.salary_id AS l_salary_id,l.user_id AS l_user_id,l.date AS l_date,"
-				+ "c.id AS c_id,c.living_budget_id AS c_living_budget_id,c.category_name AS c_category_name,c.budget AS c_budget,"
+				+ "c.id AS c_id,c.living_budget_id AS c_living_budget_id,c.category_name AS c_category_name,c.budget AS c_budget "
 				+ "FROM salaries AS s LEFT OUTER JOIN living_budgets AS l ON s.id=l.salary_id  "
 				+ "LEFT OUTER JOIN categories AS c ON l.id=c.living_budget_id " + "WHERE s.id=:id ORDER BY s_id DESC;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);

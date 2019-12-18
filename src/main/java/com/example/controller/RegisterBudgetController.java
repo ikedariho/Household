@@ -5,11 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Salary;
 import com.example.form.LivingBudgetForm;
 import com.example.service.RegisterBudgetService;
 
 /**
- * 予算登録する際に使用するコントローラ.
+ * 予算登録しその後確認画面を表示する際に使用するコントローラ.
  * 
  * @author riho.ikeda
  *
@@ -21,10 +22,16 @@ public class RegisterBudgetController {
 	private RegisterBudgetService registerBudgetService;
 
 	@RequestMapping("")
-	public String registerBudget(LivingBudgetForm livingBudgetForm,Model model) {
+	public String registerBudget(LivingBudgetForm livingBudgetForm, Model model) {
 		registerBudgetService.registerBudget(livingBudgetForm);
-		return "confirm";
+		return "redirect:/registerBudget/confirm";
 	}
 
+	@RequestMapping("/confirm")
+	public String confirm(LivingBudgetForm livingBudgetForm, Model model) {
+		Salary salary = registerBudgetService.comfirm(livingBudgetForm);
+		model.addAttribute("salary", salary);
+		return "confirm";
+	}
 
 }

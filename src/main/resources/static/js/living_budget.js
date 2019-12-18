@@ -24,7 +24,6 @@ $(function() {
 		var sabings = 0;
 		var kozukai = 0;
 		var manDistribution = manSalary / womanSalary;
-		console.log(manDistribution);
 		$(".budget").each(function(index,element){
 			if(!$(this).val()){
 			var budget=0;
@@ -35,12 +34,9 @@ $(function() {
 		});
 		var extraBudget = totalSalary - totalBudget;
 		console.log(extraBudget);
-		savings = Math.floor(extraBudget * savingsRate/1000)*1000; // 1000の位で切り捨て
-		var totalPocketMoney = extraBudget -savings;
-		console.log('40行目'+totalPocketMoney);
+		var totalPocketMoney = Math.floor(extraBudget * savingsRate/1000)*1000; // 1000の位で切り捨て
+		var savings = extraBudget -extraBudget*savingsRate +(extraBudget -extraBudget*savingsRate)-totalPocketMoney ;
 		manPocketMoney = totalPocketMoney * manDistribution / (manDistribution + 1);
-		console.log('manDistribution / manDistribution + 1は'+manDistribution / manDistribution + 1);
-		console.log(manPocketMoney);
 		var manPocketMoneyAfterTruncation = Math.floor(manPocketMoney/1000)*1000;
 		var womanPocketMoney = Math.ceil((totalPocketMoney - manPocketMoneyAfterTruncation)/1000)*1000; 
 		$("#manPocketMoney").val(manPocketMoneyAfterTruncation);

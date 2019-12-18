@@ -70,7 +70,7 @@
 					<input type="button" class="btn btn-primary" id="calculatePocketMoney" value="お小遣いを計算"><br>
 					<ul style="list-style: none;">
 						<li><input th:value="${session.user.manName}+'さんのお小遣い'" type="text"
-							name="categoryNameList" readonly="readonly"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
+							name="categoryNameList"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
 							name="budgedList" id="manPocketMoney"></li>
 						<li><input th:value="${session.user.womanName}+'さんのお小遣い'" type="text"
 							name="categoryNameList">&nbsp;&nbsp;&nbsp; 予算 <input type="text"
@@ -78,8 +78,8 @@
 
 					</ul>
 					<ul style="list-style: none;">
-						<li>貯金&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
+						<li><input type="text" value="貯金"
+							name="categoryNameList"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
 							name="budgedList" id="savings"></li>
 
 					</ul>

@@ -1,6 +1,8 @@
 package com.example.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,7 @@ public class RegisterBudgetService {
 		livingBudget.setDate(date);
 
 		livingBudgetRepository.insert(livingBudget);
-
+		System.out.println(livingBudgetForm);
 		Category category = null;
 		if (livingBudgetForm.getCategoryNameList() != null) {
 			Integer count = 0;
@@ -52,12 +54,12 @@ public class RegisterBudgetService {
 			livingBudget.setCategoryList(CategoryList);
 
 			for (Integer budget : livingBudgetForm.getbudgedList()) {
+				category = new Category();
+				category = livingBudget.getCategoryList().get(count);
 				category.setBudget(budget);
-				livingBudget.getCategoryList().get(count).setBudget(budget);
 				count += 1;
+				categoryRepository.insert(category);
 			}
-
-			categoryRepository.insert(category);
 
 		}
 	}

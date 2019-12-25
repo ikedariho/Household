@@ -43,4 +43,36 @@ $(function() {
 		$("#womanPocketMoney").val(womanPocketMoney);
 		$("#savings").val(savings);
 	});
+	
+	＄("＃searchLatestBudget").on('click',function(){
+		$.getJSON('http://localhost:8080/registerBudget/latestBudget?userId=?',
+		{
+			userId:$('#userId').val()
+		}		
+	)
+	.done(function(data){
+		if(data.result){
+			
+			
+			
+			
+		}
+		
+		
+	}
+			
+	)
+		
+		
+		
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
 });

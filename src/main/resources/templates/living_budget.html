@@ -30,7 +30,10 @@
 					<span th:text="${session.user.womanName}+'さん'"></span><span
 						th:text="${womanSalary}" id="womanSalary"></span>
 				</div>
-				今月の予算を算出します。<br> 項目と予算をそれぞれ追加してください。<br> <br> <br>
+				今月の予算を算出します。<br> 項目と予算をそれぞれ追加してください。<br> 
+				<input type="button" id="searchLatestBudget" value="先月の予算を表示">
+				<input type="hidden" id="userId" th:value="${session.user.userId}">
+				<br> <br>
 				<br> <br>
 				<form th:action="@{/registerBudget}" method="POST">
 					<input type="hidden" th:value="${salaryId}" name="salaryId">

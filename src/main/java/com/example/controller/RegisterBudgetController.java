@@ -1,10 +1,13 @@
 package com.example.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.domain.LivingBudget;
 import com.example.domain.Salary;
 import com.example.form.LivingBudgetForm;
 import com.example.service.RegisterBudgetService;
@@ -32,6 +35,13 @@ public class RegisterBudgetController {
 		Salary salary = registerBudgetService.comfirm(livingBudgetForm);
 		model.addAttribute("salary", salary);
 		return "confirm";
+	}
+	
+	@RequestMapping("/latestBudget")
+	@ResponseBody
+	public LivingBudget latestBudget(String userId){
+		LivingBudget livingBudget = registerBudgetService.latestBudget(userId);
+		return livingBudget;
 	}
 
 }

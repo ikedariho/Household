@@ -94,5 +94,16 @@ public class RegisterBudgetService {
 		return salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId());
 
 	}
+	
+	/**
+	 * 直近の設定予算を検索する.
+	 * 
+	 * @param userId ユーザID
+	 * @return 直近の設定予算.
+	 */
+	public LivingBudget latestBudget(String userId) {
+		List<LivingBudget> livingBudgetList = livingBudgetRepository.findByUserId(userId);
+		return livingBudgetList.get(livingBudgetList.size()-1);
+	}
 
 }

@@ -44,20 +44,20 @@ public class RegisterBudgetService {
 	public void registerBudget(LivingBudgetForm livingBudgetForm) {
 		LivingBudget livingBudget = new LivingBudget();
 		List<String> checkNameList = new ArrayList<>();
-		for(String categoryName:livingBudgetForm.getCategoryNameList()) {
+		for (String categoryName : livingBudgetForm.getCategoryNameList()) {
 			System.out.println(categoryName);
-			if(!(categoryName.equals(""))) {
+			if (!(categoryName.equals(""))) {
 				checkNameList.add(categoryName);
 			}
 		}
 		livingBudgetForm.setCategoryNameList(checkNameList); // formのnameが空の所を消去してリストを更新.
 		List<Integer> checkBudgetList = new ArrayList<>();
-		for(Integer budget:livingBudgetForm.getbudgedList()) {
-			if(!(budget==null)) {
+		for (Integer budget : livingBudgetForm.getbudgedList()) {
+			if (!(budget == null)) {
 				checkBudgetList.add(budget);
 			}
 		}
-		livingBudgetForm.setbudgedList(checkBudgetList);	// formのbudgetがnullの所を消去してリストを更新.
+		livingBudgetForm.setbudgedList(checkBudgetList); // formのbudgetがnullの所を消去してリストを更新.
 		livingBudget.setSalaryId(livingBudgetForm.getSalaryId());
 		livingBudget.setUserId(livingBudgetForm.getUserId());
 		Date date = new Date();
@@ -91,12 +91,11 @@ public class RegisterBudgetService {
 	 * @return
 	 */
 	public Salary comfirm(LivingBudgetForm livingBudgetForm) {
-		System.out.println("サービス："+salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId()));
+		System.out.println("サービス：" + salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId()));
 		return salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId());
-	
 
 	}
-	
+
 	/**
 	 * 直近の設定予算を検索する.
 	 * 
@@ -105,7 +104,14 @@ public class RegisterBudgetService {
 	 */
 	public LivingBudget latestBudget(String userId) {
 		List<LivingBudget> livingBudgetList = livingBudgetRepository.findByUserId(userId);
-		return livingBudgetList.get(livingBudgetList.size()-1);
-	}
+		if (livingBudgetList == null) {
+			return null;
+		}
+		LivingBudget livingBudget = livingBudgetList.get(livingBudgetList.size() - 1);
+		System.out.println(livingBudget.getId());
+		List<Category> categoryList = categoryRepository.findByLivingBudgetId(livingBudget.getId());
+		livingBudget.setCategoryList(categoryList);
+		return livingBudget;
 
+	}
 }

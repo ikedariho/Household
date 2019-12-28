@@ -21,7 +21,7 @@ import com.example.service.RegisterUserService;
 
 @Controller
 @RequestMapping("/")
-public class registerUserController {
+public class RegisterUserController {
 
 	@Autowired
 	private RegisterUserService registerUserService;

@@ -10,7 +10,6 @@
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/piza.css}" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" th:src="@{/js/living_budget.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -24,11 +23,11 @@
 				style="background-color: #e3f2fd;">
 				<div>
 					<span th:text="${session.user.manName}+'さん'"></span><span
-						th:text="${manSalary}" id="manSalary"></span>
+						th:text="${session.salary.manSalary}" id="manSalary"></span>
 				</div>
 				<div>
 					<span th:text="${session.user.womanName}+'さん'"></span><span
-						th:text="${womanSalary}" id="womanSalary"></span>
+						th:text="${session.salary.womanSalary}" id="womanSalary"></span>
 				</div>
 				今月の予算を算出します。<br> 項目と予算をそれぞれ追加してください。<br> 
 				<input type="button" id="searchLatestBudget" value="先月の予算を表示">
@@ -36,8 +35,8 @@
 				<br> <br>
 				<br> <br>
 				<form th:action="@{/registerBudget}" method="POST">
-					<input type="hidden" th:value="${salaryId}" name="salaryId">
-					<input type="hidden" th:value="${session.user.userId}"
+					<input type="hidden" th:value="${session.salary.id}" name="salaryId">
+					<input type="hidden" th:value="${session.user.userId}" id ="userId"
 						name="userId">
 					<nobr>
 						<!-- 						<input type="button" class="btn btn-primary" id="add_category_btn" -->
@@ -46,43 +45,43 @@
 					<br>
 					<ul id="category_ul" style="list-style: none;">
 						<li>項目1&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category1"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget1"></li>
 						<li></li>
 						<li>項目2&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category2"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget2"></li>
 						<li>項目3&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category3"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget3"></li>
 						<li></li>
 						<li>項目4&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category4"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget4"></li>
 						<li>項目5&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category5"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget5"></li>
 						<li></li>
 						<li>項目6&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category6"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget6"></li>
 						<li>項目7&nbsp;&nbsp;&nbsp;<input type="text"
-							name="categoryNameList"> 予算 <input type="text"
-							name="budgedList" class="budget"></li>
+							name="categoryNameList" id="category7"> 予算 <input type="text"
+							name="budgedList" class="budget" id="budget7"></li>
 					</ul>
 					<input type="button" class="btn btn-primary" id="calculatePocketMoney" value="お小遣いを計算"><br>
 					<ul style="list-style: none;">
 						<li><input th:value="${session.user.manName}+'さんのお小遣い'" type="text"
-							name="categoryNameList"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
+							name="categoryNameList" id="category8"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
 							name="budgedList" id="manPocketMoney"></li>
 						<li><input th:value="${session.user.womanName}+'さんのお小遣い'" type="text"
-							name="categoryNameList">&nbsp;&nbsp;&nbsp; 予算 <input type="text"
+							name="categoryNameList" id="category9">&nbsp;&nbsp;&nbsp; 予算 <input type="text"
 							name="budgedList" id="womanPocketMoney"></li>
 
 					</ul>
 					<ul style="list-style: none;">
 						<li><input type="text" value="貯金"
-							name="categoryNameList"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
+							name="categoryNameList" id="category10"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
 							name="budgedList" id="savings"></li>
 
 					</ul>
@@ -96,4 +95,5 @@
 	<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script src="js/bootstrap.min.js"></script>
 </body>
+<script type="text/javascript" th:src="@{/js/living_budget.js}"></script>
 </html>

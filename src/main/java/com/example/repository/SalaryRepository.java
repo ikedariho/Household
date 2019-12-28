@@ -1,7 +1,6 @@
 package com.example.repository;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,9 +16,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.example.domain.Category;
 import com.example.domain.LivingBudget;
 import com.example.domain.Salary;
-import com.example.domain.Category;
 
 /**
  * 給与登録するリポジトリ.
@@ -52,9 +52,16 @@ public class SalaryRepository {
 		return key.intValue();
 	}
 	
-//	private static final RowMapper<Salary> SALARY_ROW_MAPPER = (rs,i) ->{
-//		
-//	};
+	private static final RowMapper<Salary> SALARY_ROW_MAPPER = (rs,i) ->{
+		Salary salary = new Salary();
+		salary.setId(rs.getInt("id"));
+		salary.setUserId(rs.getString("user_id"));
+		salary.setManSalary(rs.getInt("man_salary"));
+		salary.setWomanSalary(rs.getInt("woman_salary"));
+		salary.setDate(rs.getTimestamp("date"));
+		return salary;
+		
+	};
 	
 
 	public static final ResultSetExtractor<List<Salary>> SALARY_RESULT_SET_EXTRACTER = (rs) -> {
@@ -119,5 +126,12 @@ public class SalaryRepository {
 		}
 		return salaryList.get(0);
 	}
+	
+	public List<Salary> findByUserId(String userId) {
+	String sql = "SELECT id,user_id,man_salary,woman_salary,date FROM salaries WHERE user_id=:userId";
+	SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+	List<Salary> salaryList = template.query(sql, param,SALARY_ROW_MAPPER);
+	return salaryList;
 
+}
 }

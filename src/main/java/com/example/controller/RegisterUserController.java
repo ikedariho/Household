@@ -110,7 +110,7 @@ public class RegisterUserController {
 		}
 		
 		session.setAttribute("user", confirmUser);
-		return "forward:/salary";
+		return "forward:/showMainMenu";
 	}
 
 }

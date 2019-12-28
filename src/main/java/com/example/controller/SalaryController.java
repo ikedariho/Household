@@ -68,6 +68,7 @@ public class SalaryController {
 		salary.setUserId(userId);
 		Integer salaryld = salaryService.salaryInsert(salary);
 		salary.setId(salaryld);
+		session.removeAttribute("salary");
 		session.setAttribute("salary", salary);
 		return "living_budget";
 		

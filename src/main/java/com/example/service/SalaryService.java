@@ -1,10 +1,15 @@
 package com.example.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Salary;
+import com.example.domain.User;
 import com.example.repository.SalaryRepository;
 
 /**
@@ -20,6 +25,9 @@ public class SalaryService {
 	@Autowired
 	private SalaryRepository salaryRepository;
 
+	@Autowired
+	private HttpSession session;
+	
 	/**
 	 * 給与登録する.
 	 * 
@@ -29,5 +37,16 @@ public class SalaryService {
 		Integer salaryId =  salaryRepository.insert(salary);
 		return salaryId;
 	}
-
+	
+	/**
+	 * 最新の給料情報を取得するメソッド
+	 * 
+	 * @return 最新の給料情報
+	 */
+	public Salary findByLatestSalary(){
+		User user = (User)session.getAttribute("user");
+		String userId = user.getUserId();		
+		List<Salary> salarylist = salaryRepository.findByUserId(userId);
+		return salarylist.get(0);
+	}
 }

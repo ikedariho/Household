@@ -14,7 +14,7 @@ public class ShowMainMenuController {
 	
 	@RequestMapping("/showSalaryCalculation")
 	public String showRegisterSalaryCalculation() {
-		return "salary_calculation";
+		return "forward:/salary";
 	}
 	
 	@RequestMapping("/showlivingBudget")

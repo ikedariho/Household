@@ -34,10 +34,7 @@ public class SalaryController {
 	private HttpSession session;
 
 	@RequestMapping("")
-	public String index(Model model) {
-		
-		
-		
+	public String index() {
 		return "salary_calculation";
 	}
 

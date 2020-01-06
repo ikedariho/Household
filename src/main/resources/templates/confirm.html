@@ -51,21 +51,21 @@
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<h3 class="text-center">確認画面</h3>
 				<h5 class="text-left">
-					給与受取日：<span th:text="${salary.date]"></span>
+					給与受取日：<span th:text="${#dates.format(salary.date,'yyyy/MM/dd')}"></span> 
 				</h5>
 				<table class="table table-striped">
 					<tbody>
 						<tr>
 							<th>
 								<div class="text-center">
-									<span th:text="${session.user.manName}"></span>:<span
-										th:text="${salary.manSalary}"></span>
+									<span th:text="${session.user.manName}"></span>さんの給与:<span
+										th:text="${#numbers.formatInteger(salary.manSalary,0,'COMMA') + '円'}"></span>
 								</div>
 							</th>
 							<th>
 								<div class="text-center">
-									<span th:text="${session.user.womanName}"></span>:<span
-										th:text="${salary.womanSalary}"></span>
+									<span th:text="${session.user.womanName}"></span>さんの給与:<span
+										th:text="${#numbers.formatInteger(salary.womanSalary,0,'COMMA') + '円'}"></span>
 								</div>
 							</th>
 						</tr>
@@ -73,13 +73,13 @@
 					<tbody th:each="livingBudget:${salary.livingBudgetList}">
 						<tr th:each="category:${livingBudget.categoryList}">
 							<td>
-								<div class="center">
+								<div class="text-center">
 									<span th:text="${category.categoryName}"></span>
 								</div>
 							</td>
 							<td>
-								<div class="center">
-									<span th:text="${category.budget}"></span>
+								<div class="text-center">
+									<span th:text="${#numbers.formatInteger(category.budget,0,'COMMA') + '円'}"></span>
 								</div>
 							</td>
 						</tr>
@@ -87,8 +87,8 @@
 				</table>
 			</div>
 		</div>
-		
-		<div class="row" th:if="${order}">
+
+		<!-- <div class="row" th:if="${order}">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
 					<span id="total-price">消費税：<span
@@ -99,7 +99,7 @@
 					</span>
 				</div>
 			</div>
-		</div>
+		</div> 
 
 		<div class="row" th:if="${order}">
 			<div class="col-xs-offset-5 col-xs-3">
@@ -110,7 +110,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<!-- end container -->
 	<script

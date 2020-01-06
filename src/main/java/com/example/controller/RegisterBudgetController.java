@@ -1,5 +1,9 @@
 package com.example.controller;
 
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpSession;
+>>>>>>> 717f769eb688ae63a59992af14a4b336cb0939d6
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.LivingBudget;
 import com.example.domain.Salary;
+import com.example.domain.User;
 import com.example.form.LivingBudgetForm;
 import com.example.service.RegisterBudgetService;
 
@@ -24,14 +29,17 @@ public class RegisterBudgetController {
 	@Autowired
 	private RegisterBudgetService registerBudgetService;
 
+//	@Autowired
+//	private HttpSession session;
+
+	/**
+	 * @param livingBudgetForm
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("")
 	public String registerBudget(LivingBudgetForm livingBudgetForm, Model model) {
 		registerBudgetService.registerBudget(livingBudgetForm);
-		return "redirect:/registerBudget/confirm";
-	}
-
-	@RequestMapping("/confirm")
-	public String confirm(LivingBudgetForm livingBudgetForm, Model model) {
 		Salary salary = registerBudgetService.comfirm(livingBudgetForm);
 		model.addAttribute("salary", salary);
 		return "confirm";

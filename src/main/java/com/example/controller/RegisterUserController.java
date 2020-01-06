@@ -21,7 +21,7 @@ import com.example.service.RegisterUserService;
 
 @Controller
 @RequestMapping("/")
-public class registerUserController {
+public class RegisterUserController {
 
 	@Autowired
 	private RegisterUserService registerUserService;
@@ -82,8 +82,6 @@ public class registerUserController {
 		LocalDateTime nowLocalDt = LocalDateTime.now();
 		Timestamp date = Timestamp.valueOf(nowLocalDt);
 		user.setDate(date);
-		System.out.println(user);
-		System.out.println(user);
 		registerUserService.registerUser(user);
 		return "redirect:/";
 	}
@@ -101,7 +99,6 @@ public class registerUserController {
 		User user = new User();
 		BeanUtils.copyProperties(loginForm, user);
 		User confirmUser = registerUserService.findByUserIdAndPassword(user);
-		System.out.println(confirmUser);
 		if (confirmUser == null) {
 			result.rejectValue("userId", null, "ユーザIDまたはパスワードが違います");
 		}
@@ -110,7 +107,7 @@ public class registerUserController {
 		}
 		
 		session.setAttribute("user", confirmUser);
-		return "forward:/salary";
+		return "forward:/showMainMenu";
 	}
 
 }

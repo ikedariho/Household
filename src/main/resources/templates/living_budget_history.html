@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<title>CoupleFiVs</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/piza.css}" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/living_budget_history.js}"></script>
+</head>
+<body>
+
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img
+						alt="main log" th:src="@{/image/title.png}" height="35">
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<p class="navbar-text navbar-right">
+						<a href="order_history.html" class="navbar-link">履歴</a>&nbsp;&nbsp;
+						<a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp;
+						<a th:href="@{/logout}" class="navbar-link">ログアウト</a>
+					</p>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+
+		<!-- table -->
+		<div class="row">
+			<div
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+				<h3 class="text-center">確認画面</h3>
+
+				<div th:each="salary:${salaryList}">
+					<h5 class="text-left">
+						給与受取日：<span th:text="${#dates.format(salary.date,'yyyy/MM/dd')}"></span>
+					</h5>
+					<div>
+						<h6>収入</h6>
+					</div>
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<td>
+									<div class="text-center">
+										<span th:text="${session.user.manName}"></span>さんの給与:
+									</div>
+								</td>
+								<td>
+									<div class="text-center">
+										<span
+											th:text="${#numbers.formatInteger(salary.manSalary,0,'COMMA') + '円'}"></span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="text-center">
+										<span th:text="${session.user.womanName}"></span>さんの給与:
+									</div>
+								</td>
+								<td>
+									<div class="text-center">
+										<span
+											th:text="${#numbers.formatInteger(salary.womanSalary,0,'COMMA') + '円'}"></span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div th:if="${salary.livingBudgetList}">
+						<h6>支出</h6>
+					<table class="table table-striped">
+						<tbody th:each="livingBudget:${salary.livingBudgetList}">
+							<tr th:each="category:${livingBudget.categoryList}">
+								<td>
+									<div class="text-center">
+										<span th:text="${category.categoryName}"></span>
+									</div>
+								</td>
+								<td>
+									<div class="text-center">
+										<span
+											th:text="${#numbers.formatInteger(category.budget,0,'COMMA') + '円'}"></span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+		<form th:action="@{/showMainMenu/showNumberOfBudgetHistory}" id="form" th:method="post">
+		</form>
+		<span th:each="pageNumber:${pagingNumberList}"><a th:if="${pageNumber}==${thisPageNumber}" th:text="${pageNumber}+' '"  th:id="now"></a><a th:unless="${pageNumber}==${thisPageNumber}" th:text="${pageNumber}+' '"  th:id="pageNumber+${pageNumber}"></a></span>
+		<div>
+		</div>
+		<span th:text="${thisPageNumber}" id="thisPageNumber" style="display:none"></span>
+		
+		
+		
+		</div>
+
+		<!-- <div class="row" th:if="${order}">
+			<div class="col-xs-offset-2 col-xs-8">
+				<div class="form-group text-center">
+					<span id="total-price">消費税：<span
+						th:text="${#numbers.formatInteger(order.getTax(),1,'COMMA')}"></span>円
+					</span><br> <span id="total-price">ご注文金額合計：<span
+						th:text="${#numbers.formatInteger(order.getCalcTotalPrice(),1,'COMMA')}"></span>円
+						(税込)
+					</span>
+				</div>
+			</div>
+		</div> 
+
+		<div class="row" th:if="${order}">
+			<div class="col-xs-offset-5 col-xs-3">
+				<div class="form-group">
+					<form th:action="@{/showOrdered}">
+						<input class="form-control btn btn-warning btn-block"
+							type="submit" value="注文に進む">
+					</form>
+				</div>
+			</div>
+		</div> -->
+	</div>
+	<!-- end container -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- end container -->
+	<!-- 	<script -->
+	<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+	<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

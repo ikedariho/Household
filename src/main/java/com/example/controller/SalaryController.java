@@ -34,10 +34,7 @@ public class SalaryController {
 	private HttpSession session;
 
 	@RequestMapping("")
-	public String index(Model model) {
-		
-		
-		
+	public String index() {
 		return "salary_calculation";
 	}
 
@@ -70,9 +67,9 @@ public class SalaryController {
 		String userId = user.getUserId();
 		salary.setUserId(userId);
 		Integer salaryld = salaryService.salaryInsert(salary);
-		model.addAttribute("salaryId", salaryld);
-		model.addAttribute("manSalary", salary.getManSalary());
-		model.addAttribute("womanSalary", salary.getWomanSalary());
+		salary.setId(salaryld);
+		session.removeAttribute("salary");
+		session.setAttribute("salary", salary);
 		return "living_budget";
 		
 

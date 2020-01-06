@@ -110,7 +110,7 @@ public class RegisterBudgetService {
 		if (livingBudgetList == null) {
 			return null;
 		}
-		LivingBudget livingBudget = livingBudgetList.get(livingBudgetList.size() - 1);
+		LivingBudget livingBudget = livingBudgetList.get(0);
 		List<Category> categoryList = categoryRepository.findByLivingBudgetId(livingBudget.getId());
 		livingBudget.setCategoryList(categoryList);
 		return livingBudget;
@@ -133,25 +133,45 @@ public class RegisterBudgetService {
 	/**
 	 * 1ページに表示する履歴リストを取得するメソッド.
 	 * 
-	 * @param pageNumber 現在のページ番号
+	 * @param pageNumber  現在のページ番号
 	 * @param onePageView 1ページ辺りの表示件数
 	 * @return 履歴リスト
 	 */
-	public List<Salary> getOnePageSalaryList(int pageNumber, int onePageView) {
+	public List<Salary> getOnePageSalaryList(int pageNumber, int onePageView, int historyCount,
+			List<Salary> allSalaryList) {
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
-		int limit = onePageView;
-		int offset = makeOffset(pageNumber, onePageView);
-		List<Salary> salaryList = salaryRepository.findByUserIdWithLimitAndOffsetUsingResultSetExtractor(userId, limit,
-				offset);
+		int maxIndex = historyCount - 1;
+//		int maxSalaryIndex = maxIndex - onePageView * pageNumber;
+		int minSalaryIndex = onePageView * pageNumber - 1;
+		if (minSalaryIndex >= maxIndex) {
+			minSalaryIndex = maxIndex;
+		}
+		System.out.println(minSalaryIndex);
+		int maxSalaryIndex = onePageView * pageNumber - (onePageView - 1) - 1;
+		if (maxSalaryIndex <= 0) {
+			maxSalaryIndex = 0;
+		}
+		System.out.println(maxSalaryIndex);
+//		int minSalaryIndex = historyCount - onePageView * pageNumber + (onePageView - 1);
+		List<Salary> salaryList = new ArrayList<>();
+		if (historyCount != 0) {
+			int minSalaryId = allSalaryList.get(minSalaryIndex).getId();
+			System.out.println(minSalaryId);
+			int maxSalaryId = allSalaryList.get(maxSalaryIndex).getId();
+			System.out.println(maxSalaryId);
+			salaryList = salaryRepository.findByUserIdWithLimitAndOffsetUsingResultSetExtractor(userId, minSalaryId,
+					maxSalaryId);
+		}
 		return salaryList;
+
 	}
 
 	/**
 	 * ページ番号リストの大きさを決めるメソッド.
 	 * 
 	 * @param historyCount 履歴の総数
-	 * @param onePageView 1ページ辺りの表示件数
+	 * @param onePageView  1ページ辺りの表示件数
 	 * @return ページ番号リストの大きさ
 	 */
 	public int makePagingNumberSize(int historyCount, int onePageView) {
@@ -168,7 +188,7 @@ public class RegisterBudgetService {
 	/**
 	 * ページングに使うoffsetの番号を作成するメソッド.
 	 * 
-	 * @param pageNumber 現在のページ番号
+	 * @param pageNumber  現在のページ番号
 	 * @param onePageView 1ページ辺りの表示数
 	 * @return offsetの数字を返す
 	 */
@@ -182,20 +202,18 @@ public class RegisterBudgetService {
 	}
 
 	/**
-	 * ページング番号リストを作るメソッド.
-	 * 現在のページが5以下の場合は1~5のリストを作る.
-	 * 5より大きい場合は下限を１として±5のリストを作る.
+	 * ページング番号リストを作るメソッド. 現在のページが5以下の場合は1~5のリストを作る. 5より大きい場合は下限を１として±5のリストを作る.
 	 * 
 	 * 
-	 * @param historyCount 履歴の数
-	 * @param onePageView 1ページ辺りの表示件数
+	 * @param historyCount  履歴の数
+	 * @param onePageView   1ページ辺りの表示件数
 	 * @param nowPageNumber 現在のページ番号
 	 * @return 履歴画面へ遷移
 	 */
 	public List<String> makePagingNumberList(int historyCount, int onePageView, Integer nowPageNumber) {
 		List<String> pagingNumberList = new ArrayList<>();
 		int startNumber;
-		int limitNumber = makePagingNumberSize(historyCount, onePageView);
+		int limitNumber = makePagingNumberSize(historyCount, onePageView) - 1;
 		if (nowPageNumber - 5 <= 0) {
 			startNumber = 1;
 		} else {
@@ -215,10 +233,15 @@ public class RegisterBudgetService {
 				} else {
 					pagingNumberList.add(String.valueOf(i));
 				}
-				listCount++;
 			}
+			if (i == limitNumber) {
+				break;
+			}
+			listCount++;
 		}
-		pagingNumberList.add("次へ");
+		if (listCount >= 6) {
+			pagingNumberList.add("次へ");
+		}
 		return pagingNumberList;
 	}
 

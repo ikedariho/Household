@@ -68,9 +68,9 @@ $(function() {
 			}else{
 			$(categoryName).val(data.categoryList[listNumber].categoryName);
 			$(budgetName).val(data.categoryList[listNumber].budget);
+			categoryNumber++
 		};
 			listNumber++;
-			categoryNumber++
 		});
 
 	}

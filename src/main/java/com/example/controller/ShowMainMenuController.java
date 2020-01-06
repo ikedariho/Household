@@ -76,10 +76,12 @@ public class ShowMainMenuController {
 		int pageNumber = STARTPAGENUMBER;
 		List<Salary> allSalaryList = registerBudgetService.getAllSalaryList();// 履歴総数を調べる.niti 
 		int historyCount = allSalaryList.size();
+		if(historyCount!=0) {
 		List<String> pagingNumberList = registerBudgetService.makePagingNumberList(historyCount, ONEPAGEVIEW,pageNumber);
-		List<Salary> salaryList = registerBudgetService.getOnePageSalaryList(pageNumber, ONEPAGEVIEW);
+		List<Salary> salaryList = registerBudgetService.getOnePageSalaryList(pageNumber, ONEPAGEVIEW,historyCount,allSalaryList);
 		model.addAttribute("salaryList", salaryList);
 		model.addAttribute("pagingNumberList",pagingNumberList);
+		}
 		return "living_budget_history";
 	}
 	
@@ -94,18 +96,22 @@ public class ShowMainMenuController {
 	public String showNumberOfBudgetHistory(Integer pageNumber,Model model) {
 		Integer thisPagenumber = pageNumber;
 		List<String> pagingNumberList = new ArrayList<>();
-		int historyCount = registerBudgetService.getAllSalaryList().size();
-		System.out.println(pageNumber);
-		System.out.println(pagingNumberList);
+		List<Salary> allSalaryList = registerBudgetService.getAllSalaryList();
+		int historyCount = allSalaryList.size();
+		System.out.println(historyCount+"aaaa");
+		if(historyCount!=0) {
+			
 		if(pageNumber==null) {
 			pageNumber=1;
 		}
 		pagingNumberList = registerBudgetService.makePagingNumberList(historyCount, ONEPAGEVIEW, pageNumber);
-		List<Salary> salaryList = registerBudgetService.getOnePageSalaryList(pageNumber, ONEPAGEVIEW);
+		List<Salary> salaryList = registerBudgetService.getOnePageSalaryList(pageNumber, ONEPAGEVIEW,historyCount,allSalaryList);
 		model.addAttribute("salaryList", salaryList);
 		model.addAttribute("pagingNumberList",pagingNumberList);
 		model.addAttribute("thisPageNumber",thisPagenumber);
 		return "living_budget_history";
+		}
+		return showBudgetHistory(model);
 	}
 	
 }

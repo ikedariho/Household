@@ -1,9 +1,5 @@
 package com.example.controller;
 
-import javax.servlet.http.HttpSession;
->>>>>>> 717f769eb688ae63a59992af14a4b336cb0939d6
-=======
->>>>>>> standard
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

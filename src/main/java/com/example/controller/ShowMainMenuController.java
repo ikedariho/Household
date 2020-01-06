@@ -44,10 +44,12 @@ public class ShowMainMenuController {
 	@RequestMapping("/showLivingBudget")
 	public String showlivingBudget() {
 		Salary salary = (Salary) session.getAttribute("salary");
+		System.out.println(salary);
 		// セッションIDがnullだった場合に実行
 		if (salary == null) {
 			salary = salaryService.findByLatestSalary();
 		}
+		System.out.println(salary);
 		session.setAttribute("salary", salary);
 		return "living_budget";
 	}

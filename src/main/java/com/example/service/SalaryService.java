@@ -47,8 +47,6 @@ public class SalaryService {
 		User user = (User)session.getAttribute("user");
 		String userId = user.getUserId();		
 		List<Salary> salarylist = salaryRepository.findByUserId(userId);
-		int latestSalary;
-		latestSalary = salarylist.size()-1;
-		return salarylist.get(latestSalary);
+		return salarylist.get(0);
 	}
 }

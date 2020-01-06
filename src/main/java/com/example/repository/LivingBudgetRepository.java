@@ -64,7 +64,7 @@ public class LivingBudgetRepository {
 	 * @return 予算リスト
 	 */
 	public List<LivingBudget> findByUserId(String userId){
-		String sql ="SELECT id,user_id,salary_id,date FROM living_budgets WHERE user_id=:userId ORDER BY id ASC";
+		String sql ="SELECT id,user_id,salary_id,date FROM living_budgets WHERE user_id=:userId ORDER BY id DESC";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		List<LivingBudget> livingBudgetList = template.query(sql, param,LIVING_BUDGET_ROWMAPPER);
 		if(livingBudgetList.size()==0) {

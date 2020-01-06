@@ -70,22 +70,9 @@ public class SalaryController {
 		salary.setId(salaryld);
 		session.removeAttribute("salary");
 		session.setAttribute("salary", salary);
-		return "living_budget";
+		return "main_menu";
 		
 
 	}
-	
-//	@RequestMapping("/findSalary")
-//	@ResponseBody
-//	public List<Integer> findSalary(){
-//		List<Integer> salalyList = new ArrayList<>();
-//		
-//	}
-//	
-//	@RequestMapping("/findByUserName")
-//	@ResponseBody
-//	public List<String> findByUserName(){
-//		
-//	}
 
 }

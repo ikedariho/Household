@@ -138,7 +138,7 @@ public class SalaryRepository {
 	 * @return 給料リスト
 	 */
 	public List<Salary> findByUserId(String userId) {
-		String sql = "SELECT id,user_id,man_salary,woman_salary,date FROM salaries WHERE user_id=:userId";
+		String sql = "SELECT id,user_id,man_salary,woman_salary,date FROM salaries WHERE user_id=:userId ORDER BY id DESC";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		List<Salary> salaryList = template.query(sql, param, SALARY_ROW_MAPPER);
 		return salaryList;
@@ -170,13 +170,13 @@ public class SalaryRepository {
 	 * @param offset スタート位置
 	 * @return 給料リスト
 	 */
-	public List<Salary> findByUserIdWithLimitAndOffsetUsingResultSetExtractor(String userId, Integer limit, Integer offset) {
+	public List<Salary> findByUserIdWithLimitAndOffsetUsingResultSetExtractor(String userId, Integer minSalaryId, Integer maxSalaryId) {
 		String sql = "SELECT s.id AS s_id,s.date AS s_date,s.user_id AS s_user_id,s.man_salary AS s_man_salary,s.woman_salary AS s_woman_salary,"
 				+ "l.id AS l_id,l.salary_id AS l_salary_id,l.user_id AS l_user_id,l.date AS l_date,"
 				+ "c.id AS c_id,c.living_budget_id AS c_living_budget_id,c.category_name AS c_category_name,c.budget AS c_budget "
 				+ "FROM salaries AS s LEFT OUTER JOIN living_budgets AS l ON s.id=l.salary_id  "
-				+ "LEFT OUTER JOIN categories AS c ON l.id=c.living_budget_id " + "WHERE s.user_id=:userId ORDER BY s_id DESC LIMIT :limit OFFSET :offset;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("limit", limit).addValue("offset", offset);
+				+ "LEFT OUTER JOIN categories AS c ON l.id=c.living_budget_id " + "WHERE s.user_id=:userId AND s.id BETWEEN :minSalaryId AND :maxSalaryId ORDER BY s_id DESC,c.id DESC";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("minSalaryId", minSalaryId).addValue("maxSalaryId", maxSalaryId);
 		List<Salary> salaryList = template.query(sql, param, SALARY_RESULT_SET_EXTRACTER);
 		return salaryList;
 	}

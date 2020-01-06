@@ -40,13 +40,14 @@ public class CategoryRepository {
 	 * @param category
 	 */
 	public void insert(Category category) {
+		System.out.println(category);
 		SqlParameterSource param = new BeanPropertySqlParameterSource(category);
 		String sql = "INSERT INTO categories(living_budget_id,category_name,budget)VALUES(:livingBudgetId,:categoryName,:budget)";
 		template.update(sql, param);
 	}
 	
 	public List<Category> findByLivingBudgetId(Integer livingBudgetId){
-		String sql = "SELECT id,living_budget_id,budget,category_name FROM categories WHERE living_budget_id = :livingBudgetId";
+		String sql = "SELECT id,living_budget_id,budget,category_name FROM categories WHERE living_budget_id = :livingBudgetId ORDER BY id DESC";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("livingBudgetId", livingBudgetId);
 		List<Category> categoryList = template.query(sql, param,CATEGORY_ROW_MAPPER);
 		if(categoryList.size()==0) {

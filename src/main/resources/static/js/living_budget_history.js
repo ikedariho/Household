@@ -2,19 +2,21 @@
  * 
  */
 $(function() {
-	$('[id^="pageNumber"]').on('click', function() {
+	$('[id^="pageNumber"]').on('click', function(event) {
+		event.preventDefault();
 		var text = $(this).text();
 		$(this).val(text);
-		var mae = `前へ`;
+		var mae = `前へ `;
+		var next = `次へ `;
 		var param;
 		console.log(text);
-		if (text == mae) {
+		console.log(mae);
+		if (String(text) === mae) {
 			param = parseInt($('#now').text()) - 1;
-			console.log('maeが=だったときの値'+param);
-		} else {
-			alert('アラートです');
+		} else if(String(text) === next){
+			param = parseInt($('#now').text()) + 1;
+		}else{
 			param = parseInt($(this).text());
-			console.log('maeが=じゃないときの値'+param);
 		}
 		$('<input>').attr({
 			'type' : 'hidden',

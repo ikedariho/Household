@@ -130,6 +130,13 @@ public class RegisterBudgetService {
 		return salaryList;
 	}
 
+	/**
+	 * 1ページに表示する履歴リストを取得するメソッド.
+	 * 
+	 * @param pageNumber 現在のページ番号
+	 * @param onePageView 1ページ辺りの表示件数
+	 * @return 履歴リスト
+	 */
 	public List<Salary> getOnePageSalaryList(int pageNumber, int onePageView) {
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
@@ -140,6 +147,13 @@ public class RegisterBudgetService {
 		return salaryList;
 	}
 
+	/**
+	 * ページ番号リストの大きさを決めるメソッド.
+	 * 
+	 * @param historyCount 履歴の総数
+	 * @param onePageView 1ページ辺りの表示件数
+	 * @return ページ番号リストの大きさ
+	 */
 	public int makePagingNumberSize(int historyCount, int onePageView) {
 		// 1ページ辺りに表示させる件数を基に分割するページ数を決める
 		int number;
@@ -151,6 +165,13 @@ public class RegisterBudgetService {
 		return number;
 	}
 
+	/**
+	 * ページングに使うoffsetの番号を作成するメソッド.
+	 * 
+	 * @param pageNumber 現在のページ番号
+	 * @param onePageView 1ページ辺りの表示数
+	 * @return offsetの数字を返す
+	 */
 	public int makeOffset(int pageNumber, int onePageView) {
 		int offset = 0;
 		if (pageNumber == 0) {
@@ -160,6 +181,17 @@ public class RegisterBudgetService {
 		return offset;
 	}
 
+	/**
+	 * ページング番号リストを作るメソッド.
+	 * 現在のページが5以下の場合は1~5のリストを作る.
+	 * 5より大きい場合は下限を１として±5のリストを作る.
+	 * 
+	 * 
+	 * @param historyCount 履歴の数
+	 * @param onePageView 1ページ辺りの表示件数
+	 * @param nowPageNumber 現在のページ番号
+	 * @return 履歴画面へ遷移
+	 */
 	public List<String> makePagingNumberList(int historyCount, int onePageView, Integer nowPageNumber) {
 		List<String> pagingNumberList = new ArrayList<>();
 		int startNumber;
@@ -167,7 +199,7 @@ public class RegisterBudgetService {
 		if (nowPageNumber - 5 <= 0) {
 			startNumber = 1;
 		} else {
-			startNumber = nowPageNumber - 5;
+			startNumber = nowPageNumber;
 			if (limitNumber - startNumber <= 5) {
 				startNumber = limitNumber - 5;
 			}

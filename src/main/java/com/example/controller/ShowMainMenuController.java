@@ -36,11 +36,21 @@ public class ShowMainMenuController {
 		return "main_menu";
 	}
 
+	/**
+	 * 給料登録画面を表示するメソッド.
+	 * 
+	 * @return 給料登録画面に遷移
+	 */
 	@RequestMapping("/showSalaryCalculation")
 	public String showRegisterSalaryCalculation() {
 		return "forward:/salary";
 	}
 
+	/**
+	 * 予算登録画面に遷移するメソッド.
+	 * 
+	 * @return 予算登録画面に遷移
+	 */
 	@RequestMapping("/showLivingBudget")
 	public String showlivingBudget() {
 		Salary salary = (Salary) session.getAttribute("salary");

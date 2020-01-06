@@ -82,8 +82,6 @@ public class RegisterUserController {
 		LocalDateTime nowLocalDt = LocalDateTime.now();
 		Timestamp date = Timestamp.valueOf(nowLocalDt);
 		user.setDate(date);
-		System.out.println(user);
-		System.out.println(user);
 		registerUserService.registerUser(user);
 		return "redirect:/";
 	}
@@ -101,7 +99,6 @@ public class RegisterUserController {
 		User user = new User();
 		BeanUtils.copyProperties(loginForm, user);
 		User confirmUser = registerUserService.findByUserIdAndPassword(user);
-		System.out.println(confirmUser);
 		if (confirmUser == null) {
 			result.rejectValue("userId", null, "ユーザIDまたはパスワードが違います");
 		}

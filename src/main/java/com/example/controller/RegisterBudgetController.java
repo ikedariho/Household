@@ -44,10 +44,8 @@ public class RegisterBudgetController {
 	@ResponseBody
 	public LivingBudget latestBudget(String userId){
 		LivingBudget livingBudget = registerBudgetService.latestBudget(userId);
-		System.out.println("aaaa");
-		System.out.println(livingBudget);
-		System.out.println(userId);
 		return livingBudget;
 	}
+	
 
 }

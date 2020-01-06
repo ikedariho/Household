@@ -29,7 +29,6 @@ public class RegisterUserService {
 	 */
 	public boolean findByUserId(String userId) {
 		User user = userRepository.findByUserId(userId);
-		System.out.println(user);
 		if(user == null) {
 			return true;
 		}

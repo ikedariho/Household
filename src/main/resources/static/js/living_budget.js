@@ -2,8 +2,8 @@
  * 
  */
 $(function() {
-	var i = 3;
 	$("#add_category_btn").click(function() {
+		var i = 3;
 		if(i<7){
 			$("#category_ul").append("\<li\>項目" + i + "&nbsp;&nbsp;&nbsp;<input type=text name=categoryNameList\>  予算 \<input type=text name=budgetList class=budget\>\<\/li\>");
 			i++;

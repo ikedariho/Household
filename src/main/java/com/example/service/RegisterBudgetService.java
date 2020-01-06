@@ -1,9 +1,10 @@
 package com.example.service;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.domain.Category;
 import com.example.domain.LivingBudget;
 import com.example.domain.Salary;
+import com.example.domain.User;
 import com.example.form.LivingBudgetForm;
 import com.example.repository.CategoryRepository;
 import com.example.repository.LivingBudgetRepository;
@@ -36,6 +38,9 @@ public class RegisterBudgetService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Autowired
+	private HttpSession session;
+
 	/**
 	 * 予算情報をインサートする.
 	 * 
@@ -45,7 +50,6 @@ public class RegisterBudgetService {
 		LivingBudget livingBudget = new LivingBudget();
 		List<String> checkNameList = new ArrayList<>();
 		for (String categoryName : livingBudgetForm.getCategoryNameList()) {
-			System.out.println(categoryName);
 			if (!(categoryName.equals(""))) {
 				checkNameList.add(categoryName);
 			}
@@ -91,7 +95,6 @@ public class RegisterBudgetService {
 	 * @return
 	 */
 	public Salary comfirm(LivingBudgetForm livingBudgetForm) {
-		System.out.println("サービス：" + salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId()));
 		return salaryRepository.findBySalaryId(livingBudgetForm.getSalaryId());
 
 	}
@@ -108,10 +111,83 @@ public class RegisterBudgetService {
 			return null;
 		}
 		LivingBudget livingBudget = livingBudgetList.get(livingBudgetList.size() - 1);
-		System.out.println(livingBudget.getId());
 		List<Category> categoryList = categoryRepository.findByLivingBudgetId(livingBudget.getId());
 		livingBudget.setCategoryList(categoryList);
 		return livingBudget;
 
 	}
+
+	/**
+	 * 過去の予算と給料一覧一式を取得するメソッド.
+	 * 
+	 * @return 予算一覧
+	 */
+	public List<Salary> getAllSalaryList() {
+		User user = (User) session.getAttribute("user");
+		System.out.println(user);
+		String userId = user.getUserId();
+		List<Salary> salaryList = salaryRepository.findByUserIdUsingResultSetExtractor(userId);
+		return salaryList;
+	}
+
+	public List<Salary> getOnePageSalaryList(int pageNumber, int onePageView) {
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		int limit = onePageView;
+		int offset = makeOffset(pageNumber, onePageView);
+		List<Salary> salaryList = salaryRepository.findByUserIdWithLimitAndOffsetUsingResultSetExtractor(userId, limit,
+				offset);
+		return salaryList;
+	}
+
+	public int makePagingNumberSize(int historyCount, int onePageView) {
+		// 1ページ辺りに表示させる件数を基に分割するページ数を決める
+		int number;
+		if (historyCount % onePageView == 0) {
+			number = historyCount / onePageView;
+		} else {
+			number = historyCount / onePageView + 1;
+		}
+		return number;
+	}
+
+	public int makeOffset(int pageNumber, int onePageView) {
+		int offset = 0;
+		if (pageNumber == 0) {
+			pageNumber = 1;
+		}
+		offset = onePageView * (pageNumber - 1);
+		return offset;
+	}
+
+	public List<String> makePagingNumberList(int historyCount, int onePageView, Integer nowPageNumber) {
+		List<String> pagingNumberList = new ArrayList<>();
+		int startNumber;
+		int limitNumber = makePagingNumberSize(historyCount, onePageView);
+		if (nowPageNumber - 5 <= 0) {
+			startNumber = 1;
+		} else {
+			startNumber = nowPageNumber - 5;
+			if (limitNumber - startNumber <= 5) {
+				startNumber = limitNumber - 5;
+			}
+		}
+		int listCount = 0;
+		for (int i = startNumber - 5; i < nowPageNumber + 5; i++) {
+			if (i >= 1) {
+				if (listCount == 0) {
+					if (i != 1) {
+						pagingNumberList.add("前へ");
+					}
+					pagingNumberList.add(String.valueOf(i));
+				} else {
+					pagingNumberList.add(String.valueOf(i));
+				}
+				listCount++;
+			}
+		}
+		pagingNumberList.add("次へ");
+		return pagingNumberList;
+	}
+
 }

@@ -111,6 +111,12 @@ public class SalaryRepository {
 
 	};
 
+	/**
+	 * 給料情報を取得するメソッド.
+	 * 
+	 * @param id ユーザID
+	 * @return 給料情報
+	 */
 	public Salary findBySalaryId(Integer id) {
 		String sql = "SELECT s.id AS s_id,s.date AS s_date,s.user_id AS s_user_id,s.man_salary AS s_man_salary,s.woman_salary AS s_woman_salary,"
 				+ "l.id AS l_id,l.salary_id AS l_salary_id,l.user_id AS l_user_id,l.date AS l_date,"
@@ -125,6 +131,12 @@ public class SalaryRepository {
 		return salaryList.get(0);
 	}
 
+	/**
+	 * 給料リストを取得するメソッド.
+	 * 
+	 * @param userId ユーザID
+	 * @return 給料リスト
+	 */
 	public List<Salary> findByUserId(String userId) {
 		String sql = "SELECT id,user_id,man_salary,woman_salary,date FROM salaries WHERE user_id=:userId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
@@ -133,6 +145,12 @@ public class SalaryRepository {
 
 	}
 	
+	/**
+	 * 給料リストを取得するメソッド.
+	 * 
+	 * @param userId ユーザID
+	 * @return 給料リスト
+	 */
 	public List<Salary> findByUserIdUsingResultSetExtractor(String userId) {
 		String sql = "SELECT s.id AS s_id,s.date AS s_date,s.user_id AS s_user_id,s.man_salary AS s_man_salary,s.woman_salary AS s_woman_salary,"
 				+ "l.id AS l_id,l.salary_id AS l_salary_id,l.user_id AS l_user_id,l.date AS l_date,"
@@ -144,6 +162,14 @@ public class SalaryRepository {
 		return salaryList;
 	}
 	
+	/**
+	 * 1ページ辺りの給料リストを取得するメソッド.
+	 * 
+	 * @param userId ユーザID
+	 * @param limit 1ページ辺りの表示件数
+	 * @param offset スタート位置
+	 * @return 給料リスト
+	 */
 	public List<Salary> findByUserIdWithLimitAndOffsetUsingResultSetExtractor(String userId, Integer limit, Integer offset) {
 		String sql = "SELECT s.id AS s_id,s.date AS s_date,s.user_id AS s_user_id,s.man_salary AS s_man_salary,s.woman_salary AS s_woman_salary,"
 				+ "l.id AS l_id,l.salary_id AS l_salary_id,l.user_id AS l_user_id,l.date AS l_date,"

@@ -36,18 +36,30 @@ public class ShowMainMenuController {
 		return "main_menu";
 	}
 
+	/**
+	 * 給料登録画面を表示するメソッド.
+	 * 
+	 * @return 給料登録画面に遷移
+	 */
 	@RequestMapping("/showSalaryCalculation")
 	public String showRegisterSalaryCalculation() {
 		return "forward:/salary";
 	}
 
+	/**
+	 * 予算登録画面に遷移するメソッド.
+	 * 
+	 * @return 予算登録画面に遷移
+	 */
 	@RequestMapping("/showLivingBudget")
 	public String showlivingBudget() {
 		Salary salary = (Salary) session.getAttribute("salary");
+		System.out.println(salary);
 		// セッションIDがnullだった場合に実行
 		if (salary == null) {
 			salary = salaryService.findByLatestSalary();
 		}
+		System.out.println(salary);
 		session.setAttribute("salary", salary);
 		return "living_budget";
 	}

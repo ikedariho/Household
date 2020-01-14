@@ -89,7 +89,7 @@ public class userRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("password",
 				password);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
-		if(userList.size()==0) {
+		if (userList.size() == 0) {
 			return null;
 		}
 		return userList.get(0);

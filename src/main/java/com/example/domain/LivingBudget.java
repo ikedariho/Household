@@ -21,6 +21,8 @@ public class LivingBudget {
 	/* CategoryList */
 	private List<Category> categoryList;
 
+	private List<Salary> salaryList;
+
 	/**
 	 * @return the id
 	 */
@@ -91,13 +93,18 @@ public class LivingBudget {
 		this.categoryList = categoryList;
 	}
 
-	/*
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	public List<Salary> getSalaryList() {
+		return salaryList;
+	}
+
+	public void setSalaryList(List<Salary> salaryList) {
+		this.salaryList = salaryList;
+	}
+
 	@Override
 	public String toString() {
-		return "LivingBudget [id=" + id + ", salaryId=" + salaryId + ", userId=" + userId + ", date=" + date + "]";
+		return "LivingBudget [id=" + id + ", salaryId=" + salaryId + ", userId=" + userId + ", date=" + date
+				+ ", categoryList=" + categoryList + ", salaryList=" + salaryList + "]";
 	}
 
 }

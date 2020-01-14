@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.LivingBudget;
 
+
 /**
  * LivingBudgetRepository
  * 
@@ -44,7 +45,7 @@ public class LivingBudgetRepository {
 		livinbudget.setDate(rs.getDate("date"));		
 		return livinbudget;
 	};
-
+	
 	/**
 	 * 予算情報を挿入する.
 	 * 

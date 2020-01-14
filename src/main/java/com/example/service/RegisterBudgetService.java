@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,9 @@ public class RegisterBudgetService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private SalaryService salaryService;
 
 	@Autowired
 	private HttpSession session;
@@ -47,6 +51,17 @@ public class RegisterBudgetService {
 	 * @param livingBudgetForm
 	 */
 	public void registerBudget(LivingBudgetForm livingBudgetForm) {
+		Salary salary = new Salary();
+		User user = (User)session.getAttribute("user");
+		String userId = user.getUserId();
+		salary.setUserId(userId);
+		salary.setManSalary(livingBudgetForm.getIntManSalary());
+		salary.setWomanSalary(livingBudgetForm.getIntWomanSalary());
+		Timestamp timestamp = salaryService.makeTimestamp(livingBudgetForm.getDate());
+		salary.setDate(timestamp);
+		salaryService.salaryInsert(salary);
+		
+		
 		LivingBudget livingBudget = new LivingBudget();
 		List<String> checkNameList = new ArrayList<>();
 		for (String categoryName : livingBudgetForm.getCategoryNameList()) {
@@ -56,14 +71,16 @@ public class RegisterBudgetService {
 		}
 		livingBudgetForm.setCategoryNameList(checkNameList); // formのnameが空の所を消去してリストを更新.
 		List<Integer> checkBudgetList = new ArrayList<>();
-		for (Integer budget : livingBudgetForm.getbudgedList()) {
+		for (Integer budget : livingBudgetForm.getBudgedList()) {
 			if (!(budget == null)) {
 				checkBudgetList.add(budget);
 			}
 		}
-		livingBudgetForm.setbudgedList(checkBudgetList); // formのbudgetがnullの所を消去してリストを更新.
+		livingBudgetForm.setBudgedList(checkBudgetList); // formのbudgetがnullの所を消去してリストを更新.
 		livingBudget.setSalaryId(livingBudgetForm.getSalaryId());
 		livingBudget.setUserId(livingBudgetForm.getUserId());
+		System.out.println(livingBudget.getUserId());
+		System.out.println(livingBudgetForm.getUserId());
 		Date date = new Date();
 		livingBudget.setDate(date);
 		livingBudgetRepository.insert(livingBudget);
@@ -78,7 +95,7 @@ public class RegisterBudgetService {
 				CategoryList.add(category);
 			}
 			livingBudget.setCategoryList(CategoryList);
-			for (Integer budget : livingBudgetForm.getbudgedList()) {
+			for (Integer budget : livingBudgetForm.getBudgedList()) {
 				category = new Category();
 				category = livingBudget.getCategoryList().get(count);
 				category.setBudget(budget);
@@ -142,7 +159,6 @@ public class RegisterBudgetService {
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
 		int maxIndex = historyCount - 1;
-//		int maxSalaryIndex = maxIndex - onePageView * pageNumber;
 		int minSalaryIndex = onePageView * pageNumber - 1;
 		if (minSalaryIndex >= maxIndex) {
 			minSalaryIndex = maxIndex;
@@ -153,14 +169,13 @@ public class RegisterBudgetService {
 			maxSalaryIndex = 0;
 		}
 		System.out.println(maxSalaryIndex);
-//		int minSalaryIndex = historyCount - onePageView * pageNumber + (onePageView - 1);
 		List<Salary> salaryList = new ArrayList<>();
 		if (historyCount != 0) {
 			int minSalaryId = allSalaryList.get(minSalaryIndex).getId();
 			System.out.println(minSalaryId);
 			int maxSalaryId = allSalaryList.get(maxSalaryIndex).getId();
 			System.out.println(maxSalaryId);
-			salaryList = salaryRepository.findByUserIdWithLimitAndOffsetUsingResultSetExtractor(userId, minSalaryId,
+			salaryList = salaryRepository.findByUserIdWithMinSalaryIdAndmaxSalaryIdUsingResultSetExtractor(userId, minSalaryId,
 					maxSalaryId);
 		}
 		return salaryList;

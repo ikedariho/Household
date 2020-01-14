@@ -1,6 +1,5 @@
 package com.example.form;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,97 +9,90 @@ import java.util.List;
  *
  */
 public class LivingBudgetForm {
-
-	/* SalaryID */
-	private Integer salaryId;
+	
 	/* UserID */
 	private String userId;
+	/* 男性給料 */
+	private String manSalary;
+	/* 女性給料 */
+	private String womanSalary;
 	/* 日付 */
-	private Date date;
+	private String date;
+	/* SalaryID */
+	private Integer salaryId;
 	/* CategoryList */
 	private List<String> categoryNameList;
-
 	private List<Integer> budgedList;
-
-	/**
-	 * @return the salaryId
-	 */
-	public Integer getSalaryId() {
-		return salaryId;
+	public Integer getIntManSalary() {
+		return Integer.parseInt(manSalary);
+	}
+	
+	public Integer getIntWomanSalary() {
+		return Integer.parseInt(womanSalary);
 	}
 
-	/**
-	 * @param salaryId the salaryId to set
-	 */
-	public void setSalaryId(Integer salaryId) {
-		this.salaryId = salaryId;
-	}
-
-	/**
-	 * @return the userId
-	 */
 	public String getUserId() {
 		return userId;
 	}
 
-	/**
-	 * @param userId the userId to set
-	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
+	public String getManSalary() {
+		return manSalary;
+	}
+
+	public void setManSalary(String manSalary) {
+		this.manSalary = manSalary;
+	}
+
+	public String getWomanSalary() {
+		return womanSalary;
+	}
+
+	public void setWomanSalary(String womanSalary) {
+		this.womanSalary = womanSalary;
+	}
+
+	public String getDate() {
 		return date;
 	}
 
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	/**
-	 * @return the categoryNameList
-	 */
+	public Integer getSalaryId() {
+		return salaryId;
+	}
+
+	public void setSalaryId(Integer salaryId) {
+		this.salaryId = salaryId;
+	}
+
 	public List<String> getCategoryNameList() {
 		return categoryNameList;
 	}
 
-	/**
-	 * @param categoryNameList the categoryNameList to set
-	 */
 	public void setCategoryNameList(List<String> categoryNameList) {
 		this.categoryNameList = categoryNameList;
 	}
 
-	/**
-	 * @return the list
-	 */
-	public List<Integer> getbudgedList() {
+	public List<Integer> getBudgedList() {
 		return budgedList;
 	}
 
-	/**
-	 * @param list the list to set
-	 */
-	public void setbudgedList(List<Integer> budgedList) {
+	public void setBudgedList(List<Integer> budgedList) {
 		this.budgedList = budgedList;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "LivingBudgetForm [salaryId=" + salaryId + ", userId=" + userId + ", date=" + date
-				+ ", categoryNameList=" + categoryNameList + ", budgedList=" + budgedList + "]";
+		return "LivingBudgetForm [userId=" + userId + ", manSalary=" + manSalary + ", womanSalary=" + womanSalary
+				+ ", date=" + date + ", salaryId=" + salaryId + ", categoryNameList=" + categoryNameList
+				+ ", budgedList=" + budgedList + "]";
 	}
+	
 
 }

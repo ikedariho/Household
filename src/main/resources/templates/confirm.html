@@ -58,16 +58,34 @@
 						<tr>
 							<th>
 								<div class="text-center">
-									<span th:text="${session.user.manName}"></span>さんの給与:<span
-										th:text="${#numbers.formatInteger(salary.manSalary,0,'COMMA') + '円'}"></span>
+								<span>項目</span>
 								</div>
 							</th>
 							<th>
 								<div class="text-center">
-									<span th:text="${session.user.womanName}"></span>さんの給与:<span
-										th:text="${#numbers.formatInteger(salary.womanSalary,0,'COMMA') + '円'}"></span>
+								<span>金額</span>
 								</div>
 							</th>
+							<tr>
+							</tbody>
+							<tbody class="text-center">
+							<tr>
+							<td>
+							<span  th:text="${session.user.manName}+'さんの給与'"></span>
+							</td>
+							<td>
+							<span th:text="${#numbers.formatInteger(salary.manSalary,0,'COMMA') + '円'}"></span>
+							</td>
+						</tr>
+					</tbody>
+							<tbody>
+							<tr>
+							<td class="text-center">
+							<span th:text="${session.user.womanName}+'さんの給与'"></span>
+							</td>
+							<td class="text-center">
+							<span th:text="${#numbers.formatInteger(salary.womanSalary,0,'COMMA') + '円'}"></span>
+							</td>
 						</tr>
 					</tbody>
 					<tbody th:each="livingBudget:${salary.livingBudgetList}">

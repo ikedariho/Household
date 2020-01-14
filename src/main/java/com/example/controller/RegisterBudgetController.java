@@ -24,8 +24,6 @@ public class RegisterBudgetController {
 	@Autowired
 	private RegisterBudgetService registerBudgetService;
 
-//	@Autowired
-//	private HttpSession session;
 
 	/**
 	 * @param livingBudgetForm

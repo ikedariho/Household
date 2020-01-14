@@ -21,23 +21,106 @@
 			</nav>
 			<nav class="navbar navbar-light mb-2"
 				style="background-color: #e3f2fd;">
-				<div>
-					<span th:text="${session.user.manName}+'さん'"></span><span
-						th:text="${session.salary.manSalary}" id="manSalary"></span>
-				</div>
-				<div>
-					<span th:text="${session.user.womanName}+'さん'"></span><span
-						th:text="${session.salary.womanSalary}" id="womanSalary"></span>
-				</div>
-				今月の予算を算出します。<br> 項目と予算をそれぞれ追加してください。<br> 
-				<input type="button" id="searchLatestBudget" value="先月の予算を表示">
-				<input type="hidden" id="userId" th:value="${session.user.userId}">
-				<br> <br>
-				<br> <br>
+				
+<!-- 						<form th:action="@{/salary/salaryInsert}" method="POST" id="registerSalary"> -->
 				<form th:action="@{/registerBudget}" method="POST">
-					<input type="hidden" th:value="${session.salary.id}" name="salaryId">
-					<input type="hidden" th:value="${session.user.userId}" id ="userId"
-						name="userId">
+			<!-- table -->
+			<div class="row">
+				<div
+					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+					<h3 class="text-center">収入入力</h3>
+<!-- 					<input type="hidden" name="userId"> -->
+					<!-- th:value="${user.userId}" -->
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<td>
+									<div class="text-center">日付</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-12">
+												<label class="control-label" style="color: red"
+													for="inputPeriod">日付を入力してください</label>
+											</div>
+											<div class="col-sm-5">
+												<input type="date" name="date" id="deliveryTime"
+													class="form-control input-sm" min="deliveryTime" />
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="text-center" th:text="${session.user.manName}">男性名前</div>
+									<!-- th:text="${user.manName}" -->
+								</td>
+								<td>
+								
+
+									<div class="col-sm-12">
+										<label class="control-label" style="color: red"
+											for="inputPeriod">給与を入力してください</label>
+									</div> <input type="text" name="manSalary" class="Salary" id="manSalary">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="text-center" th:text="${session.user.womanName}">女性名前</div>
+									<!-- th:text="${user.womanName}" -->
+								</td>
+								<td>
+									<div class="col-sm-12">
+										<label class="control-label" style="color: red"
+											for="inputPeriod">給与を入力してください</label>
+									</div> <input type="text" name="womanSalary" class="Salary" id="womanSalary">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-offset-2 col-xs-8">
+					<div class="form-group text-center">
+						<span id="total-price">収入合計：<span id="totalSalary"></span>円
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-offset-4 col-xs-4">
+<!-- 				<div class="form-group"> -->
+<!-- 					<input class="form-control btn btn-warning btn-block" type="submit" -->
+<!-- 						value="登録する"> -->
+<!-- 					<a class="form-control btn btn-warning btn-block" th:href="@{/showMainMenu}" th:text="戻る"></a> -->
+<!-- 				</div> -->
+				
+			</div>
+<!-- 		</form> -->
+		<br><br>
+
+				
+				
+<!-- 				<div> -->
+<!-- 					<span th:text="${session.user.manName}+'さん'"></span> -->
+<!-- 					<span th:if="${session.salary}" -->
+<!-- 						th:text="${session.salary.manSalary}" id="manSalary"></span> -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<!-- 					<span th:text="${session.user.womanName}+'さん'"></span> -->
+<!-- 					<span th:if="${session.salary}" -->
+<!-- 						th:text="${session.salary.womanSalary}" id="womanSalary"></span> -->
+<!-- 				</div> -->
+				今月の支出予算を算出します。<br> 項目と予算金額をそれぞれ入力してください。<br> 
+				<input type="button" id="searchLatestBudget" value="先月の予算を表示">
+				<br> <br>
+				<br> <br>
+					<input type="hidden" th:if="${session.salary}" th:value="${session.salary.id}" name="salaryId">
+					<input type="hidden" th:value="${session.user.userId}" id ="userId"	name="userId">
 					<nobr>
 						<!-- 						<input type="button" class="btn btn-primary" id="add_category_btn" -->
 						<!-- 							value="項目を追加"> -->
@@ -71,22 +154,25 @@
 					</ul>
 					<input type="button" class="btn btn-primary" id="calculatePocketMoney" value="お小遣いを計算"><br>
 					<ul style="list-style: none;">
-						<li><input th:value="${session.user.manName}+'さんのお小遣い'" type="text"
+						<li><input  type="text"
 							name="categoryNameList" id="category8"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
 							name="budgedList" id="manPocketMoney"></li>
-						<li><input th:value="${session.user.womanName}+'さんのお小遣い'" type="text"
+						<li><input type="text"
 							name="categoryNameList" id="category9">&nbsp;&nbsp;&nbsp; 予算 <input type="text"
 							name="budgedList" id="womanPocketMoney"></li>
 
 					</ul>
 					<ul style="list-style: none;">
-						<li><input type="text" value="貯金"
+						<li><input type="text" 
 							name="categoryNameList" id="category10"> &nbsp;&nbsp;&nbsp;予算 <input type="text"
 							name="budgedList" id="savings"></li>
 
 					</ul>
-					<button class="btn btn-primary">送信</button>
+					<button class="btn btn-primary" id = "registerBudgetButton">送信</button>
+					<a class="btn btn-primary" th:href="@{/showMainMenu}" th:text="戻る">戻る</a>
 				</form>
+				<a th:text=${session.user.manName} id="manName" style="display:none"></a>
+				<a th:text=${session.user.womanName} id="womanName" style="display:none"></a>
 			</nav>
 		</div>
 	</div>

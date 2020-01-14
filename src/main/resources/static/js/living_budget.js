@@ -1,7 +1,29 @@
 /**
  * 
  */
+
 $(function() {
+	
+	$(".Salary").keyup(function() {
+		var manText = $('input[name=manSalary]').val();
+		var manSalary = Number(manText) || 0; // NaNのとき0にする
+		var womanText = $('input[name=womanSalary]').val();
+		var womanSalary = Number(womanText) || 0; // NaNのとき0にする
+
+		var totalSalary = (manSalary + womanSalary);
+		$("#totalSalary").text(totalSalary.toLocaleString());
+
+	});
+
+	var date = new Date();
+
+	var yyyy = date.getFullYear();
+	var mm = ("0" + (date.getMonth() + 1)).slice(-2);
+	var dd = ("0" + date.getDate()).slice(-2);
+
+	document.getElementById("deliveryTime").value = yyyy + '-' + mm + '-' + dd;
+
+	
 	$("#add_category_btn").click(function() {
 		var i = 3;
 		if(i<7){
@@ -13,10 +35,15 @@ $(function() {
 	});
 	
 	$("#calculatePocketMoney").on('click',function(){
+		var manName = $('#manName').text()+'さんのお小遣い'
+		var womanName = $('#womanName').text()+'さんのお小遣い'
+		$('#category8').val(manName);
+		$('#category9').val(womanName);
+		$('#category10').val("貯金");
 		var numberOfPersons = 2;
 		var savingsRate = 0.5;
-		var manSalary = parseInt($("#manSalary").text());
-		var womanSalary = parseInt($("#womanSalary").text());
+		var manSalary = parseInt($("#manSalary").val());
+		var womanSalary = parseInt($("#womanSalary").val());
 		var totalSalary = manSalary+womanSalary;
 		var manPocketMoney = 0;
 		var womanPocketMoney = 0;
@@ -76,4 +103,8 @@ $(function() {
 	}
 	)
 	})
+
+	console.log(manName);
+	
 });
+
